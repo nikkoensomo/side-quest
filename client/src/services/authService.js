@@ -1,4 +1,4 @@
-import api from '../src/api/axios.js';
+import api from '../api/axios.js';
 
 export const signupService = async (formData) => {
     const response = await api.post('/auth/signup', formData);
@@ -8,4 +8,4 @@ export const signupService = async (formData) => {
 export const loginService = async (formData) => {
     const response = await api.post('/aut/login', formData);
     return response.data;
-}
+}  
