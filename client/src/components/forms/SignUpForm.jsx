@@ -1,8 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { signupService } from '../../services/authService';
 
 import BigBlackButton from '../buttons/BigBlackButton';
 
 const SignUpForm = ({ onSuccess }) => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
        username: "",
        email: "",
@@ -15,7 +19,10 @@ const SignUpForm = ({ onSuccess }) => {
         email: "",
         password: "",
         confirmPassword: "",
+        general: "",
     });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     function handleChange(e) {
         setFormData({...formData, [e.target.name]: e.target.value });
@@ -50,7 +57,7 @@ const SignUpForm = ({ onSuccess }) => {
         return newErrors;
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         const newErrors = validate();
 
         if (Object.keys(newErrors).length > 0) {
@@ -58,9 +65,25 @@ const SignUpForm = ({ onSuccess }) => {
             return; 
         }
 
-        console.log(formData);
+        try {
+            setIsLoading(true);
 
-        onSuccess();
+            const { confirmPassword, ...dataToSend } = formData;
+            const data = await signupService(dataToSend);
+
+            // stores token in local storage
+            localStorage.setItem('token', data.token);
+            
+            onSuccess();
+            navigate('/landing-page');
+        } catch (error) {
+            setErrors({
+                ...errors,
+                general: error.response?.data?.message || 'Something went wrong.'
+            })
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -107,8 +130,9 @@ const SignUpForm = ({ onSuccess }) => {
                 {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
 
                 <BigBlackButton
-                    label="Create My Account"
+                    label={isLoading ? 'Creating account...' : 'Create Account'}
                     onClick={handleSubmit}
+                    isDisabled={isLoading}
                 />
             </div>
         </>
