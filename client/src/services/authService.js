@@ -6,6 +6,6 @@ export const signupService = async (formData) => {
 }
 
 export const loginService = async (formData) => {
-    const response = await api.post('/aut/login', formData);
+    const response = await api.post('/auth/login', formData);
     return response.data;
 }  

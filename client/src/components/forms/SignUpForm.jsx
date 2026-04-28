@@ -19,9 +19,10 @@ const SignUpForm = ({ onSuccess }) => {
         email: "",
         password: "",
         confirmPassword: "",
+        general: "",
     });
 
-    const [isLoading, setIsloading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     function handleChange(e) {
         setFormData({...formData, [e.target.name]: e.target.value });
@@ -72,7 +73,7 @@ const SignUpForm = ({ onSuccess }) => {
 
             // stores token in local storage
             localStorage.setItem('token', data.token);
-
+            
             onSuccess();
             navigate('/landing-page');
         } catch (error) {
@@ -129,8 +130,9 @@ const SignUpForm = ({ onSuccess }) => {
                 {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
 
                 <BigBlackButton
-                    label="Create My Account"
+                    label={isLoading ? 'Creating account...' : 'Create Account'}
                     onClick={handleSubmit}
+                    isDisabled={isLoading}
                 />
             </div>
         </>
