@@ -22,6 +22,7 @@ const LoginForm = ({ onSuccess }) => {
 
     function handleChange(e) {
         setFormData({...formData, [e.target.name]: e.target.value });
+        setErrors({...errors, [e.target.name]: "" });
     }
 
     function validate() {
@@ -63,8 +64,6 @@ const LoginForm = ({ onSuccess }) => {
         } finally {
             setIsLoading(false);
         }
-
-        console.log(formData);
     }
 
     return (
