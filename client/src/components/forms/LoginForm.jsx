@@ -55,7 +55,7 @@ const LoginForm = ({ onSuccess }) => {
             localStorage.setItem('token', data.token);
 
             onSuccess();
-            navigate('/landing-page');
+            navigate('/dashboard-page');
         } catch (error) {
             setErrors({
                 ...errors,
