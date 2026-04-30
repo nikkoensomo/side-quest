@@ -21,7 +21,7 @@ const DashboardHeader = () => {
 
     return (
         <>
-            <header className="w-full bg-white px-6 py-4 flex flex-row justify-between items-center">
+            <header className="w-full bg-white px-6 py-4 flex flex-row justify-between items-center border-b border-gray-200">
                 <span className="text-black text-2xl font-bold">SideQuest</span>
                 <div className="flex gap-6">
                     <Bell size={24} />
