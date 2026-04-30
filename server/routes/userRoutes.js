@@ -4,8 +4,10 @@ import {
     getUserByEmail, 
     getUserByUsername,
     updateUserById,
-    deleteUserById
+    deleteUserById,
+    getLoggedInUser
 } from '../controllers/userController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -14,5 +16,6 @@ router.post('/get-by-username', getUserByUsername);
 router.post('/get-by-email', getUserByEmail);
 router.put('/update-by-id/:id', updateUserById);
 router.delete('/delete-by-id/:id', deleteUserById);
+router.get('/get-logged-user', protect, getLoggedInUser);
 
 export default router;
