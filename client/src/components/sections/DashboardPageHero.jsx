@@ -1,0 +1,13 @@
+const DashboardPageHero = () => {
+    return (
+        <>
+            <section className="w-full flex flex-col justify-center items-center py-20">
+                <h1 className="text-6xl font-light text-center leading-tight">
+                    <span>This will be the dashboard hero.</span>
+                </h1>
+            </section>
+        </>
+    );
+}
+
+export default DashboardPageHero;
