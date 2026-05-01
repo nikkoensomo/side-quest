@@ -4,7 +4,7 @@ import LandingPage from './pages/LandingPage'
 import AboutUsPage from './pages/AboutUsPage'
 import ContactUsPage from './pages/ContactUsPage'
 import DashboardPage from './pages/DashboardPage'
-import { DashboardLayout } from './layouts/DashboardLayout'
+import DashboardLayout from './layouts/DashboardLayout'
 
 function App() {
 

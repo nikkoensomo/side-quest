@@ -18,4 +18,4 @@ const DashboardLayout = () => {
     )
 }
 
-export const DashboardLayout;
+export default DashboardLayout;

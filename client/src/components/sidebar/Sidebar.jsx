@@ -1,5 +1,5 @@
 import { LayoutDashboard, CheckSquare, Settings, User } from "lucide-react";
-import { SidebarNavItem } from "./SidebarNavItem";
+import SidebarNavItem from "./SidebarNavItem";
 
 const navItems = [
     { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard-page' },
@@ -24,7 +24,7 @@ const Sidebar = () => {
                         />
                     })}
                 </nav>
-                
+
             </aside>
         </>
     )

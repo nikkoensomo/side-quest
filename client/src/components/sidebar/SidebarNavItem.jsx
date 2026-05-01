@@ -18,4 +18,4 @@ const SidebarNavItem = ({ label, icon: Icon, to }) => {
     )
 }
 
-export const SidebarNavItem;
+export default SidebarNavItem;
