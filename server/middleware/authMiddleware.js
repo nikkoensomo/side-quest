@@ -2,24 +2,24 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 export const protect = async (req, res, next) => {
+    console.log('JWT_SECRET:', process.env.JWT_SECRET);
+    console.log('Authorization header:', req.headers.authorization);
     let token;
 
-    // Check if the Authorization header exists and starts with "Bearer"
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
-            // Get the token from the string ("Bearer <token>")
             token = req.headers.authorization.split(' ')[1];
+            console.log('token extracted:', token); // add this
 
-            // Verify the token using your Secret Key
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            console.log('decoded:', decoded); // add this
 
-            // Find the user and attach them to the request (excluding the password)
             req.user = await User.findById(decoded.id).select('-password');
+            console.log('user found:', req.user); // add this
 
-            // Move to the next function (the Controller)
             next();
         } catch (error) {
-            console.error(error);
+            console.error('protect error:', error.message); // change this to error.message
             res.status(401).json({ message: 'Not authorized, token failed.' });
         }
     }
