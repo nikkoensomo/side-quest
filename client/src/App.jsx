@@ -12,8 +12,9 @@ function App() {
     <>
       <Routes>
         <Route path="/landing-page" element={<LandingPage></LandingPage>} />
-        <Route path="/dashboard-page" element={<DashboardLayout></DashboardLayout>} />
-          <Route index element={<DashboardPage></DashboardPage>} />
+        <Route path="/dashboard-page" element={<DashboardLayout />}>
+          <Route index element={<DashboardPage />} />
+        </Route>
         <Route path="/about-us-page" element={<AboutUsPage></AboutUsPage>} />
         <Route path="/contact-us-page" element={<ContactUsPage></ContactUsPage>} />
       </Routes>

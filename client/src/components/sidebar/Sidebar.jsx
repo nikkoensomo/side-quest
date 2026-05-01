@@ -15,14 +15,14 @@ const Sidebar = () => {
                 <span className="text-black text-2xl font-bold px-4 mb-4">SideQuest</span>
 
                 <nav className="flex flex-col gap-1">
-                    {navItems.map((item) => {
+                    {navItems.map((item) => (
                         <SidebarNavItem 
                             key={item.label}
                             label={item.label}
                             icon={item.icon}
                             to={item.to}
                         />
-                    })}
+                    ))}
                 </nav>
 
             </aside>
