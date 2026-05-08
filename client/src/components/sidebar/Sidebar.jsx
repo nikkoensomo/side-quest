@@ -3,7 +3,7 @@ import SidebarNavItem from "./SidebarNavItem";
 
 const navItems = [
     { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard-page' },
-    { label: 'Quests', icon: CheckSquare, to: '/quests-page' },
+    { label: 'Quests', icon: CheckSquare, to: '/dashboard-page/quests-page' },
     { label: 'Settings', icon: Settings, to: '/settings-page' },
     { label: 'User', icon: User, to: '/user-page' },
 ];
