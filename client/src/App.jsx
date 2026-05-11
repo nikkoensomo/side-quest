@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/landing-page" element={<LandingPage></LandingPage>} />
+        <Route path="/" element={<LandingPage></LandingPage>} />
         <Route path="/dashboard-page" element={<DashboardLayout />}>
           <Route index element={<DashboardPage />} />
           <Route path="quests-page" element={<QuestsPage />} />
