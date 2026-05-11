@@ -1,10 +1,25 @@
-const TaskCard = () => {
+const TaskCard = ({ title, description, status }) => {
+    const statusStyles = {
+        'pending': 'bg-yellow-100 text-yellow-700',
+        'in-progress': 'bg-blue-100 text-blue-700',
+        'completed': 'bg-green-100 text-green-700'
+    };
+
     return (
         <>
-            <div className="h-[200px] w-[150px] px-4 py-2 bg-gray-200">
-                <div className="flex flex-col gap-2 items-center justify-center">
-                    <h1 className="font-semibold text-2xl">Task</h1>
+            <div className="w-full bg-white border border-gray-200 rounded-lg px-4 py-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+
+                <div className="flex justify-between items-start mb-3">
+                    <p className="font-semibold text-gray-800">{title}</p>
+                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${statusStyles[status]}`}>
+                        {status}
+                    </span>
                 </div>
+
+                {description && (
+                    <p className="text-sm text-gray-500 line-clamp-2">{description}</p>
+                )}
+
             </div>
         </>
     )
