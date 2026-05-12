@@ -1,11 +1,13 @@
 import QuestsPageHero from "../components/sections/QuestsPageHero";
-import TaskCard from "../components/cards/TaskCard";
+import TaskList from "../components/cards/TaskList";
 
 const QuestsPage = () => {
     return (
         <>
-            <QuestsPageHero/>
-            <TaskCard/>
+            <main className="flex flex-col gap-6">
+                <QuestsPageHero />
+                <TaskList tasks={tasks} />
+            </main>
         </>
     )
 }
