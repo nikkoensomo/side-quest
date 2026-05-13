@@ -1,7 +1,7 @@
 import api from "../api/axios";
 
-export const getUserTask = async () => {
-    const response = await api.get('/users/display-task');
+export const getUserTasksService = async () => {
+    const response = await api.get('/tasks');
     return response.data;
 }
 
