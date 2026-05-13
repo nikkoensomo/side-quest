@@ -1,4 +1,8 @@
+import TaskCard from "./TaskCard";
+
 const TaskList = ({ tasks }) => {
+    if (tasks == null) return;
+
     return (
         <div className="grid grid-cols-1 gap-4">
             {tasks.map((task) => (
