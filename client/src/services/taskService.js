@@ -5,6 +5,11 @@ export const getUserTasksService = async () => {
     return response.data;
 }
 
+export const createTasksService = async (formData) => {
+    const response = await api.post('/tasks', formData);
+    return response.data;
+}
+
 export const deleteUserTask = async () => {
     // TODO:
 }
