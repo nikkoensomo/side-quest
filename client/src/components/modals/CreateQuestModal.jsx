@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 const CreateQuestModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
+
+    const modalRef = useRef(null);
 
     useEffect(() => {
         function handleClickOutside(e) {
