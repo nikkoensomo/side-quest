@@ -34,8 +34,8 @@ const questSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'in-progress', 'completed'],
-        default: 'pending',
+        enum: ['open', 'in-progress', 'completed'],
+        default: 'open',
         required: true,
     }
 
