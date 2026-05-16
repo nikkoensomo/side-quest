@@ -1,38 +1,40 @@
-import Task from '../models/Task.js';
+import Quest from '../models/Quest.js';
 import User from '../models/User.js';
 
-export const createTask = async (req, res) => {
+export const createQuest = async (req, res) => {
     try {
-        const { title, description, status } = req.body; 
+        const { title, description, location, reward, status } = req.body; 
 
-        const newTask = await Task.create({
-            userId: req.user.id,
+        const newQuest = await Quest.create({
+            postedBy: req.user.id,
             title: title,
             description: description,
+            location: location,
+            reward: reward,
             status: status
         });
 
-        if (!newTask) {
+        if (!newQuest) {
             return res.status(400).json({ message: 'Task was not created successfully.' });
         }
 
-        res.status(201).json(newTask);
+        res.status(201).json(newQuest);
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error: error.message });
     }
 }
 
-export const displayUserTasks = async (req, res) => {
+export const displayUserQuest = async (req, res) => {
     try {
-        const tasks = await Task.find({ userId: req.user.id });
+        const quests = await Quest.find({ postedBy: req.user.id });
 
-        res.status(200).json(tasks);
+        res.status(200).json(quests);
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error: error.message });
     }
 }
 
-export const updateUserTasks = async (req, res) => {
+export const updateUserQuest = async (req, res) => {
     try {
         const { title, description, status } = req.body;
 
@@ -44,33 +46,33 @@ export const updateUserTasks = async (req, res) => {
 
         if (status) updatedFields.status = status;
 
-        const updatedTask = await Task.findByIdAndUpdate(
-            { _id: req.params.id, userId: req.user.id },
+        const updatedQuest = await Quest.findByIdAndUpdate(
+            { _id: req.params.id, postedBy: req.user.id },
             { $set: updatedFields },
             { new: true }
         )
 
-        if (!updatedTask) {
+        if (!updatedQuest) {
             return res.status(400).json({ message: 'Update was unsuccessful' });
         }
 
-        res.status(200).json(updatedTask);
+        res.status(200).json(updatedQuest);
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error: error.message });
     }   
 }
 
-export const deleteUserTask = async (req, res) => {
+export const deleteUserQuest = async (req, res) => {
     try {
-        const deletedTask = await Task.findByIdAndDelete(
-            { _id: req.params.id, userId: req.user.id }
+        const deletedQuest = await Quest.findByIdAndDelete(
+            { _id: req.params.id, postedBy: req.user.id }
         )
 
-        if (!deletedTask) {
+        if (!deletedQuest) {
             return res.status(400).json({ message: 'Failed to delete task.' });
         }
 
-        res.status(200).json(deletedTask);
+        res.status(200).json(deletedQuest);
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error: error.message });
     }

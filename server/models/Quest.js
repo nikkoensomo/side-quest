@@ -11,11 +11,6 @@ const questSchema = new mongoose.Schema({
         ref: 'User',
         default: null,
     },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
     title: {
         type: String,
         required: true,
@@ -46,6 +41,6 @@ const questSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-const Quest = mongoose.model("Task", taskSchema);
+const Quest = mongoose.model("Quest", questSchema);
 
 export default Quest;

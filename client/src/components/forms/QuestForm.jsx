@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createTasksService } from '../../services/taskService';
+import { createQuestService } from '../../services/questService.js';
 import BigBlackButton from '../buttons/BigBlackButton';
 
 const QuestForm = ({ onSuccess }) => {
@@ -48,7 +48,7 @@ const QuestForm = ({ onSuccess }) => {
         try {
             setIsLoading(true);
 
-            const data = await createTasksService(formData);
+            const data = await createQuestService(formData);
             console.log(formData);
 
             onSuccess();
