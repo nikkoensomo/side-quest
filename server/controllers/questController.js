@@ -24,6 +24,37 @@ export const createQuest = async (req, res) => {
     }
 }
 
+export const acceptQuest = async (req, res) => {
+    try {
+        const quest = await Quest.findById(req.params.id);
+
+        if (!quest) {
+            return res.status(404).json({ message: 'Quest not found.' });
+        }
+
+        if (quest.status !== 'open') {
+            return res.status(400).json({ message: 'Quest is no longer available.' });
+        }
+
+        if (quest.postedBy.toString() === req.user.id) {
+            return res.status(400).json({ message: 'Cannot accept own quest.' });
+        }
+
+        const updatedQuest = await Quest.findByIdAndUpdate(
+            req.params.id,
+            {
+                acceptedBy: req.user.id,
+                status: 'in-progress'
+            },
+            { new: true }
+        );
+
+        res.status(200).json({ quest: updatedQuest });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error: error.message });
+    }
+}
+
 export const displayUserQuest = async (req, res) => {
     try {
         const quests = await Quest.find({ postedBy: req.user.id });
