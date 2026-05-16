@@ -1,6 +1,16 @@
 import mongoose from 'mongoose';
 
-const taskSchema = new mongoose.Schema({
+const questSchema = new mongoose.Schema({
+    postedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+    acceptedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        default: null,
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -17,6 +27,16 @@ const taskSchema = new mongoose.Schema({
         trim: true,
         maxlength: 200,
     },
+    location: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    reward: {
+        type: Number,
+        required: true,
+        min: 0,
+    },
     status: {
         type: String,
         enum: ['pending', 'in-progress', 'completed'],
@@ -26,6 +46,6 @@ const taskSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-const Task = mongoose.model("Task", taskSchema);
+const Quest = mongoose.model("Task", taskSchema);
 
-export default Task;
+export default Quest;
