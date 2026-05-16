@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import QuestsPageHero from "../components/sections/QuestsPageHero";
 import TaskList from "../components/cards/TaskList";
-import { getUserTasksService } from '../services/taskService';
+import { getUserQuestService } from '../services/questService.js';
 
 const QuestsPage = () => {
     const [userTask, setUserTask] = useState(null);
@@ -9,7 +9,7 @@ const QuestsPage = () => {
     useEffect(() => {
         async function fetchUserTask() {
             try {
-                const task = await getUserTasksService();
+                const task = await getUserQuestService();
                 console.log(task);
                 setUserTask(task);
             } catch (error) {
