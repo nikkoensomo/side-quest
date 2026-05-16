@@ -19,8 +19,8 @@ const QuestForm = ({ onSuccess }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     function handleChange(e) {
-        setFormData({...formData, [e.target.name]: e.target.value});
-        setErrors({...errors, [e.target.name]: ""});
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setErrors({ ...errors, [e.target.name]: "" });
     }
 
     function validate() {
@@ -64,34 +64,32 @@ const QuestForm = ({ onSuccess }) => {
 
     return (
         <>
-            <div className="flex flex-col gap-4 px-6">
-                <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    placeholder="Title"
-                    className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
-                />
-                {errors.title && <p className="text-red-500 text-xs">{errors.title}</p>}
+            <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="Title"
+                className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+            />
+            {errors.title && <p className="text-red-500 text-xs">{errors.title}</p>}
 
-                <textarea
-                    type="text"
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    placeholder="Description"
-                    rows="3"
-                    className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
-                />
-                {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
+            <textarea
+                type="text"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Description"
+                rows="3"
+                className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
+            />
+            {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
 
-                <BigBlackButton
-                    label={isLoading ? 'Creating...' : 'Create'}
-                    onClick={handleSubmit}
-                    isDisabled={isLoading}
-                />
-            </div>
+            <BigBlackButton
+                label={isLoading ? 'Creating...' : 'Create'}
+                onClick={handleSubmit}
+                isDisabled={isLoading}
+            />
         </>
     )
 }
