@@ -17,7 +17,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 8,
-    }
+    },
+    rating: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 5
+    },
 }, { timestamps: true })
 
 const User = mongoose.model("User", userSchema);
