@@ -65,6 +65,20 @@ export const displayUserQuest = async (req, res) => {
     }
 }
 
+export const displayAllQuests = async (req, res) => {
+    try {
+        const quests = await Quest.find({ status: 'open' });
+
+        if (quests.length === 0) {
+            return res.status(404).json({ message: 'No open quests available' });
+        }
+
+        res.status(200).json(quests);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error: error.message });
+    }
+}
+
 export const updateUserQuest = async (req, res) => {
     try {
         const { title, description, status } = req.body;
