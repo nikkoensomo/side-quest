@@ -1,7 +1,8 @@
 import express from 'express';
 import { 
     createQuest, 
-    displayUserQuest, 
+    displayUserQuest,
+    displayAllQuests,
     acceptQuest,
     updateUserQuest,
     deleteUserQuest
@@ -11,8 +12,9 @@ import { protect } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.post('/', protect, createQuest);
-router.get('/', protect, displayUserQuest);
-router.put('/:id', protect, acceptQuest);
+router.get('/', protect, displayAllQuests);
+router.get('/my-quests', protect, displayUserQuest);
+router.put('/:id/accept', protect, acceptQuest);
 router.put('/:id', protect, updateUserQuest);
 router.delete('/:id', protect, deleteUserQuest);
 
