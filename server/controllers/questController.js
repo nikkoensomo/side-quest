@@ -3,13 +3,14 @@ import User from '../models/User.js';
 
 export const createQuest = async (req, res) => {
     try {
-        const { title, description, location, reward, status } = req.body; 
+        const { title, description, pickupLocation, deliveryLocation, reward, status } = req.body; 
 
         const newQuest = await Quest.create({
             postedBy: req.user.id,
             title: title,
             description: description,
-            location: location,
+            pickupLocation: pickupLocation,
+            deliveryLocation: deliveryLocation,
             reward: reward,
             status: status
         });

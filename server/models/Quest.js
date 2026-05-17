@@ -22,10 +22,15 @@ const questSchema = new mongoose.Schema({
         trim: true,
         maxlength: 200,
     },
-    location: {
+    pickupLocation: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
+    },
+    deliveryLocation: {
+        type: String,
+        required: true,
+        trim: true
     },
     reward: {
         type: Number,
