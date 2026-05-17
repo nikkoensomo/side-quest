@@ -1,7 +1,12 @@
 import api from "../api/axios";
 
-export const getUserQuestService = async () => {
+export const getAllQuestsService = async () => {
     const response = await api.get('/quests');
+    return response.data;
+}
+
+export const getUserQuestService = async () => {
+    const response = await api.get('/quests/my-quests');
     return response.data;
 }
 

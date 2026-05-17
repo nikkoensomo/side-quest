@@ -3,13 +3,14 @@ import User from '../models/User.js';
 
 export const createQuest = async (req, res) => {
     try {
-        const { title, description, location, reward, status } = req.body; 
+        const { title, description, pickupLocation, deliveryLocation, reward, status } = req.body; 
 
         const newQuest = await Quest.create({
             postedBy: req.user.id,
             title: title,
             description: description,
-            location: location,
+            pickupLocation: pickupLocation,
+            deliveryLocation: deliveryLocation,
             reward: reward,
             status: status
         });
@@ -58,6 +59,20 @@ export const acceptQuest = async (req, res) => {
 export const displayUserQuest = async (req, res) => {
     try {
         const quests = await Quest.find({ postedBy: req.user.id });
+
+        res.status(200).json(quests);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error: error.message });
+    }
+}
+
+export const displayAllQuests = async (req, res) => {
+    try {
+        const quests = await Quest.find({ status: 'open' });
+
+        if (quests.length === 0) {
+            return res.status(404).json({ message: 'No open quests available' });
+        }
 
         res.status(200).json(quests);
     } catch (error) {
