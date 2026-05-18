@@ -68,7 +68,8 @@ export const displayUserQuest = async (req, res) => {
 
 export const displayAllQuests = async (req, res) => {
     try {
-        const quests = await Quest.find({ status: 'open' });
+        const quests = await Quest.find({ status: 'open' })
+            .populate('postedBy', 'username');
 
         if (quests.length === 0) {
             return res.status(404).json({ message: 'No open quests available' });

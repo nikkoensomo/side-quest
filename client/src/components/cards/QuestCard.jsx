@@ -15,8 +15,8 @@ const QuestCard = ({
                     <span className="text-gray-400 font-medium">{pickupLocation}</span>
 
                     <hr className="w-full border-gray-300"></hr>
-                    <div className="flex justify-between items-center gap-4">
-                        <span className="text-black font-medium">{postedBy}</span>
+                    <div className="flex justify-between gap-8">
+                        <span className="text-black font-medium">{postedBy.username}</span>
                         <span className="text-black font-medium">{status}</span>
                     </div>
 
