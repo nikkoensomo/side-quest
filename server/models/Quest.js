@@ -39,7 +39,7 @@ const questSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['open', 'in-progress', 'completed'],
+        enum: ['open', 'accepted', 'in-progress', 'completed', 'cancelled'],
         default: 'open',
         required: true,
     }
