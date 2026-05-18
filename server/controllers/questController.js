@@ -19,7 +19,7 @@ export const createQuest = async (req, res) => {
             return res.status(400).json({ message: 'Task was not created successfully.' });
         }
 
-        res.status(201).json(newQuest);
+        res.status(200).json(newQuest);
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error: error.message });
     }
