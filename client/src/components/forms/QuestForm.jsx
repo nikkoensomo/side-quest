@@ -5,14 +5,18 @@ import BigBlackButton from '../buttons/BigBlackButton';
 const QuestForm = ({ onSuccess }) => {
     const [formData, setFormData] = useState({
         title: '',
+        pickupLocation: '',
+        deliveryLocation: '',
+        reward: '',
         description: '',
-        status: 'pending'
     });
 
     const [errors, setErrors] = useState({
         title: '',
+        pickupLocation: '',
+        deliveryLocation: '',
+        reward: '',
         description: '',
-        status: 'pending',
         general: ''
     })
 
@@ -28,6 +32,18 @@ const QuestForm = ({ onSuccess }) => {
 
         if (!formData.title.trim()) {
             newErrors.title = "Please enter a title.";
+        }
+        
+        if (!formData.pickupLocation.trim()) {
+            newErrors.pickupLocation = "Please enter the pickup location.";
+        }
+
+        if (!formData.deliveryLocation.trim()) {
+            newErrors.deliveryLocation = "Please enter the delivery location.";
+        }
+
+        if (!formData.reward.trim()) {
+            newErrors.reward = "Please enter the reward price.";
         }
 
         if (!formData.description.trim()) {
@@ -73,6 +89,39 @@ const QuestForm = ({ onSuccess }) => {
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
             />
             {errors.title && <p className="text-red-500 text-xs">{errors.title}</p>}
+
+            <input
+                type="text"
+                name="pickupLocation"
+                value={formData.pickupLocation}
+                onChange={handleChange}
+                placeholder="Pickup Location"
+                rows="1"
+                className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
+            />
+            {errors.pickupLocation && <p className="text-red-500 text-xs">{errors.pickupLocation}</p>}
+
+            <input
+                type="text"
+                name="deliveryLocation"
+                value={formData.deliveryLocation}
+                onChange={handleChange}
+                placeholder="Delivery Location"
+                rows="1"
+                className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
+            />
+            {errors.deliveryLocation && <p className="text-red-500 text-xs">{errors.deliveryLocation}</p>}
+
+            <input
+                type="number"
+                name="reward"
+                value={formData.reward}
+                onChange={handleChange}
+                placeholder="Reward Price"
+                rows="1"
+                className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
+            />
+            {errors.reward && <p className="text-red-500 text-xs">{errors.reward}</p>}
 
             <textarea
                 type="text"
