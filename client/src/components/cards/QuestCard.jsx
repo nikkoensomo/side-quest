@@ -16,7 +16,7 @@ const QuestCard = ({
                         </div>
 
                         <StatusBadge 
-                            status={status}
+                            status={quest.status}
                         />
                     </div>
 
