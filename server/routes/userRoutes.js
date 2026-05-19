@@ -11,11 +11,11 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.get('/get-all-users', getAllUsers);
-router.post('/get-by-username', getUserByUsername);
-router.post('/get-by-email', getUserByEmail);
-router.put('/update-by-id/:id', updateUserById);
-router.delete('/delete-by-id/:id', deleteUserById);
-router.get('/get-logged-user', protect, getLoggedInUser);
+router.get('/', getAllUsers);
+router.post('/', getUserByUsername);
+router.post('/', getUserByEmail);
+router.put('/:id', updateUserById);
+router.delete('/:id', deleteUserById);
+router.get('/', protect, getLoggedInUser);
 
 export default router;

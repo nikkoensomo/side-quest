@@ -1,17 +1,48 @@
 import { useState, useEffect } from 'react';
-import { getAllQuestsService } from '../services/questService.js';
+import { getAllQuestsService, acceptQuestService } from '../services/questService.js';
 
 import DashboardPageHero from "../components/sections/DashboardPageHero";
 import CreateButton from "../components/buttons/CreateButton.jsx";
 import CreateQuestModal from '../components/modals/CreateQuestModal.jsx';
+import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
 import QuestList from '../components/cards/QuestList.jsx';
 
 const DashboardPage = () => {
     const [isCreateQuestModalOpen, setIsCreateQuestModalOpen] = useState(false);
+
     const [quests, setQuests] = useState([]);
+    const [selectedQuest, setSelectedQuest] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleCreateQuest = () => {
         setIsCreateQuestModalOpen(true);
+    }
+
+    const handleOpenQuestDetails = (quest) => {
+        setSelectedQuest(quest);
+    }
+
+    const handleCloseQuestDetails = () => {
+        setSelectedQuest(null);
+    }
+
+    const handleAcceptQuest = async (questId) => {
+        try {
+            setIsLoading(true);
+
+            await acceptQuestService(questId);
+
+            // updates the frontend immediately after accepting
+            setQuests((prevQuests) =>
+                prevQuests.filter((quest) => quest._id !== questId)
+            );
+
+            setSelectedQuest(null);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -42,11 +73,20 @@ const DashboardPage = () => {
 
                 <QuestList
                     quests={quests}
+                    viewCard={handleOpenQuestDetails}
                 />
 
                 <CreateQuestModal
                     isOpen={isCreateQuestModalOpen}
                     onClose={(() => setIsCreateQuestModalOpen(false))}
+                />
+
+                <QuestDetailsModal
+                    isOpen={!!selectedQuest}
+                    quest={selectedQuest}
+                    onClose={handleCloseQuestDetails}
+                    onAccept={handleAcceptQuest}
+                    isLoading={isLoading}
                 />
             </main>
 
