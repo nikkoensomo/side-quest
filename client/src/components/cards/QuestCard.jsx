@@ -2,13 +2,8 @@ import StatusBadge from "../badges/StatusBadge";
 import ViewCardButton from "../buttons/ViewCardButton";
 
 const QuestCard = ({
-    title,
-    description,
-    status,
-    postedBy,
-    pickupLocation,
-    deliveryLocation,
-    reward
+    quest,
+    viewCard
 }) => {
     return (
         <>
@@ -16,8 +11,8 @@ const QuestCard = ({
                 <div className="flex flex-col gap-4 justify-center">
                     <div className="flex justify-between gap-4">
                         <div className="flex flex-col gap-2">
-                            <span className="text-zinc-900 font-semibold text-lg">{title}</span>
-                            <p className="text-gray-500 font-medium text-xs">{description}</p>
+                            <span className="text-zinc-900 font-semibold text-lg">{quest.title}</span>
+                            <p className="text-gray-500 font-medium text-xs">{quest.description}</p>
                         </div>
 
                         <StatusBadge 
@@ -28,12 +23,13 @@ const QuestCard = ({
                     <div className="w-full flex justify-between bg-amber-50 border border-amber-100 rounded-lg px-4 py-2">
                         <div className="flex flex-col">
                             <span className="text-amber-700 font-medium text-xs">Given Reward</span>
-                            <span className="text-amber-950 font-semibold text-xl">{reward}</span>
+                            <span className="text-amber-950 font-semibold text-xl">{quest.reward}</span>
                         </div>
 
                         <ViewCardButton 
                             type='button'
                             label='View Card'
+                            onClick={() => viewCard(quest)}
                         />
                     </div>
                 </div>

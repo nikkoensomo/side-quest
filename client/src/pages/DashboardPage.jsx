@@ -4,14 +4,26 @@ import { getAllQuestsService } from '../services/questService.js';
 import DashboardPageHero from "../components/sections/DashboardPageHero";
 import CreateButton from "../components/buttons/CreateButton.jsx";
 import CreateQuestModal from '../components/modals/CreateQuestModal.jsx';
+import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
 import QuestList from '../components/cards/QuestList.jsx';
 
 const DashboardPage = () => {
     const [isCreateQuestModalOpen, setIsCreateQuestModalOpen] = useState(false);
+    const [isQuestDetailsModalOpen, setIsQuestDetailsModalOpen] = useState(false);
+
     const [quests, setQuests] = useState([]);
+    const [selectedQuest, setSelectedQuest] = useState(null);
 
     const handleCreateQuest = () => {
         setIsCreateQuestModalOpen(true);
+    }
+
+    const handleOpenQuestDetails = (quest) => {
+        setSelectedQuest(quest);
+    }
+
+    const handleCloseQuestDetails = () => {
+        setSelectedQuest(null);
     }
 
     useEffect(() => {
@@ -42,11 +54,18 @@ const DashboardPage = () => {
 
                 <QuestList
                     quests={quests}
+                    viewCard={handleOpenQuestDetails}
                 />
 
                 <CreateQuestModal
                     isOpen={isCreateQuestModalOpen}
                     onClose={(() => setIsCreateQuestModalOpen(false))}
+                />
+
+                <QuestDetailsModal 
+                    isOpen={!!selectedQuest}
+                    quest={selectedQuest}
+                    onClose={handleCloseQuestDetails}
                 />
             </main>
 

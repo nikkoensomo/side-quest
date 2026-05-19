@@ -1,6 +1,6 @@
 import QuestCard from "./QuestCard";
 
-const QuestList = ({ quests }) => {
+const QuestList = ({ quests, viewCard }) => {
     if (!quests) return null;
 
     return (
@@ -9,13 +9,8 @@ const QuestList = ({ quests }) => {
                 {quests.map((quest) => (
                     <QuestCard
                         key={quest._id}
-                        title={quest.title}
-                        description={quest.description}
-                        status={quest.status}
-                        postedBy={quest.postedBy}
-                        pickupLocation={quest.locatio}
-                        deliveryLocation={quest.deliveryLocation}
-                        reward={quest.reward}
+                        quest={quest}
+                        viewCard={viewCard}
                     />
                 ))}
             </div>
