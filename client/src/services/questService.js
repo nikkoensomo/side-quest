@@ -15,6 +15,11 @@ export const createQuestService = async (formData) => {
     return response.data;
 }
 
+export const acceptQuestService = async (questId) => {
+    const response = await api.put(`/quests/accept/${questId}`);
+    return response.data;
+}
+
 export const deleteQuestService = async () => {
     // TODO:
 }

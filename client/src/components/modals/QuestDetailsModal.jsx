@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import ConfirmButton from '../buttons/ConfirmButton';
 
-const QuestDetailsModal = ({ isOpen, onClose, quest }) => {
-    const modalRef = useState(null);
+const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading }) => {
+    const modalRef = useRef(null);
 
     useEffect(() => {
         function handleClickOutside(e) {
@@ -55,7 +55,9 @@ const QuestDetailsModal = ({ isOpen, onClose, quest }) => {
 
                             <ConfirmButton
                                 type='button'
-                                label='Accept'
+                                label={isLoading ? 'Accepting...' : 'Accept'}
+                                onClick={() => onAccept(quest._id)}
+                                disabled={isLoading}
                             />
                         </div>
                     </div>
