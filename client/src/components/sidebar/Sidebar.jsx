@@ -1,4 +1,5 @@
 import { LayoutDashboard, CheckSquare, Settings, User, LogOutIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import SidebarNavItem from "./SidebarNavItem";
 import LogoutButton from "../buttons/LogoutButton";
 
@@ -10,6 +11,13 @@ const navItems = [
 ];
 
 const Sidebar = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    }
+
     return (
         <>
             <aside className="h-screen w-64 bg-white border-r border-gray-200 flex flex-col px-4 py-6">
@@ -31,6 +39,7 @@ const Sidebar = () => {
                         label='Logout'
                         icon={LogOutIcon}
                         type='button'
+                        onClick={handleLogout}
                     />
                 </nav>
             </aside>
