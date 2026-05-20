@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import ConfirmButton from '../buttons/ConfirmButton';
 
-const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading }) => {
+const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisabled }) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading }) => {
                                 type='button'
                                 label={isLoading ? 'Accepting...' : 'Accept'}
                                 onClick={() => onAccept(quest._id)}
-                                disabled={isLoading}
+                                disabled={isLoading || isDisabled}
                             />
                         </div>
                     </div>

@@ -1,18 +1,23 @@
 import { useState, useEffect } from 'react';
 import { getAllQuestsService, acceptQuestService } from '../services/questService.js';
+import { getLoggedInUser } from '../services/userService.js';
 
 import DashboardPageHero from "../components/sections/DashboardPageHero";
 import CreateButton from "../components/buttons/CreateButton.jsx";
 import CreateQuestModal from '../components/modals/CreateQuestModal.jsx';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
 import QuestList from '../components/cards/QuestList.jsx';
+import QuestsPage from './QuestsPage.jsx';
 
 const DashboardPage = () => {
     const [isCreateQuestModalOpen, setIsCreateQuestModalOpen] = useState(false);
 
     const [quests, setQuests] = useState([]);
+    const [user, setUser] = useState(null);
     const [selectedQuest, setSelectedQuest] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    const isOwner = selectedQuest?.postedBy?._id === user?._id;
 
     const handleCreateQuest = () => {
         setIsCreateQuestModalOpen(true);
@@ -59,6 +64,21 @@ const DashboardPage = () => {
         fetchAllQuests();
     }, [])
 
+    useEffect(() => {
+        async function fetchLoggedUser() {
+            try {
+                const user = await getLoggedInUser();
+                setUser(user);
+                console.log('user:', user);
+                console.log('user id:', user._id);
+            } catch (error) {
+                console.log(error);
+            }   
+        }
+
+        fetchLoggedUser();
+    }, [])
+
     return (
         <>
             <main className="flex flex-col gap-6">
@@ -87,6 +107,7 @@ const DashboardPage = () => {
                     onClose={handleCloseQuestDetails}
                     onAccept={handleAcceptQuest}
                     isLoading={isLoading}
+                    isDisabled={isOwner}
                 />
             </main>
 
