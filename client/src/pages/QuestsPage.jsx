@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import QuestsPageHero from "../components/sections/QuestsPageHero";
+import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
 import TaskList from "../components/cards/TaskList";
 import QuestList from '../components/cards/QuestList.jsx';
 import QuestCard from '../components/cards/QuestCard.jsx';
@@ -9,8 +10,14 @@ const QuestsPage = () => {
     const [userQuest, setUserQuest] = useState([]);
     const [selectedQuest, setSelectedQuest] = useState(null);
 
+    const isOwner = selectedQuest?.postedBy?._id === userQuest?._id;
+
     const handleSelectedQuest = (userQuest) => {
         setSelectedQuest(userQuest);
+    }
+
+    const handleCloseQuestDetails = () => {
+        setSelectedQuest(null);
     }
 
     useEffect(() => {
@@ -19,6 +26,7 @@ const QuestsPage = () => {
                 const quest = await getUserQuestService();
                 setUserQuest(quest);
                 console.log(quest);
+                console.log(isOwner);
             } catch (error) {
                 console.log(error);
             }
@@ -34,6 +42,13 @@ const QuestsPage = () => {
                 <QuestList 
                     quests={userQuest}
                     viewCard={handleSelectedQuest}
+                />
+
+                <QuestDetailsModal 
+                    isOpen={!!userQuest}
+                    onClose={handleCloseQuestDetails}
+                    quest={selectedQuest}
+                    isOwner={isOwner}
                 />
             </main>
         </>
