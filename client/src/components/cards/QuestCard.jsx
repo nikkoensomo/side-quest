@@ -1,9 +1,14 @@
 import StatusBadge from "../badges/StatusBadge";
 import ViewCardButton from "../buttons/ViewCardButton";
+import BigBlackButton from "../buttons/BigBlackButton";
+import DangerButton from "../buttons/DangerButton";
 
 const QuestCard = ({
     quest,
-    viewCard
+    viewCard,
+    variant,
+    onEdit,
+    onDelete
 }) => {
     return (
         <>
@@ -15,7 +20,7 @@ const QuestCard = ({
                             <p className="text-gray-500 font-medium text-xs">{quest.description}</p>
                         </div>
 
-                        <StatusBadge 
+                        <StatusBadge
                             status={quest.status}
                         />
                     </div>
@@ -26,12 +31,29 @@ const QuestCard = ({
                             <span className="text-amber-950 font-semibold text-xl">{quest.reward}</span>
                         </div>
 
-                        <ViewCardButton 
+                        <ViewCardButton
                             type='button'
                             label='View Card'
                             onClick={() => viewCard(quest)}
                         />
                     </div>
+
+                    {variant ? (
+                        <div className="w-full flex justify-between items-center">
+                            <BigBlackButton 
+                                label='Edit'
+                                onClick={onEdit}
+                            />
+
+                            <DangerButton 
+                                label='Delete'
+                                type='button'
+                                onClick={onDelete}
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </>
