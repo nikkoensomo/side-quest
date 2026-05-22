@@ -3,7 +3,7 @@ import User from '../models/User.js';
 
 export const createQuest = async (req, res) => {
     try {
-        const { title, description, pickupLocation, deliveryLocation, reward, status } = req.body; 
+        const { title, description, pickupLocation, deliveryLocation, reward, status } = req.body;
 
         const newQuest = await Quest.create({
             postedBy: req.user.id,
@@ -68,8 +68,10 @@ export const displayUserQuest = async (req, res) => {
 
 export const displayAllQuests = async (req, res) => {
     try {
-        const quests = await Quest.find({ status: 'open' })
-            .populate('postedBy', 'username');
+        const quests = await Quest.find({
+            status: 'open',
+            postedBy: req.user.id
+        }).populate('postedBy', 'username');
 
         if (quests.length === 0) {
             return res.status(404).json({ message: 'No open quests available' });
@@ -106,7 +108,7 @@ export const updateUserQuest = async (req, res) => {
         res.status(200).json(updatedQuest);
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error: error.message });
-    }   
+    }
 }
 
 export const deleteUserQuest = async (req, res) => {
