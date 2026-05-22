@@ -70,7 +70,7 @@ export const displayAllQuests = async (req, res) => {
     try {
         const quests = await Quest.find({
             status: 'open',
-            postedBy: req.user.id
+            postedBy: { $ne: req.user.id }
         }).populate('postedBy', 'username');
 
         if (quests.length === 0) {
