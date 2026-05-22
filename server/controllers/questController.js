@@ -113,7 +113,7 @@ export const updateUserQuest = async (req, res) => {
 
 export const deleteUserQuest = async (req, res) => {
     try {
-        const deletedQuest = await Quest.findByIdAndDelete(
+        const deletedQuest = await Quest.findOneAndDelete(
             { _id: req.params.id, postedBy: req.user.id }
         )
 
