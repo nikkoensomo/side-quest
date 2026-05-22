@@ -38,20 +38,23 @@ const QuestCard = ({
                         />
                     </div>
 
+                    {variant === 'owner' ? (
+                        <div className="w-full flex justify-between items-center">
+                            <BigBlackButton
+                                label='Edit'
+                                onClick={onEdit}
+                            />
 
-                    <div className="w-full flex justify-between items-center">
-                        <BigBlackButton
-                            label='Edit'
-                            onClick={onEdit}
-                        />
-
-                        <DangerButton
-                            label='Delete'
-                            type='button'
-                            onClick={() => onDelete(quest._id)}
-                        />
-                    </div>
-
+                            <DangerButton
+                                label='Delete'
+                                type='button'
+                                onClick={() => onDelete(quest._id)}
+                            />
+                        </div>
+                    ) : (
+                        <>
+                        </>
+                    )}
                 </div>
             </div>
         </>

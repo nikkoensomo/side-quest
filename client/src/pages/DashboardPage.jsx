@@ -94,7 +94,7 @@ const DashboardPage = () => {
                 <QuestList
                     quests={quests}
                     viewCard={handleOpenQuestDetails}
-                    isOwner={isOwner}
+                    isOwner='public'
                 />
 
                 <CreateQuestModal

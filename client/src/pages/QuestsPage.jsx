@@ -61,6 +61,7 @@ const QuestsPage = () => {
                     quests={userQuest}
                     viewCard={handleSelectedQuest}
                     onDelete={handleDeleteQuest}
+                    isOwner='owner'
                 />
 
                 <QuestDetailsModal
