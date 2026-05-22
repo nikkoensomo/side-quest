@@ -4,11 +4,12 @@ import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
 import TaskList from "../components/cards/TaskList";
 import QuestList from '../components/cards/QuestList.jsx';
 import QuestCard from '../components/cards/QuestCard.jsx';
-import { getUserQuestService } from '../services/questService.js';
+import { getUserQuestService, deleteQuestService } from '../services/questService.js';
 
 const QuestsPage = () => {
     const [userQuest, setUserQuest] = useState([]);
     const [selectedQuest, setSelectedQuest] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const isOwner = selectedQuest?.postedBy?._id === userQuest?._id;
 
@@ -18,6 +19,23 @@ const QuestsPage = () => {
 
     const handleCloseQuestDetails = () => {
         setSelectedQuest(null);
+    }
+
+    const handleDeleteQuest = async (questId) => {
+        try {
+            setIsLoading(true);
+
+            const deletedQuest = await deleteQuestService(questId);
+            console.log('Deleted:', deletedQuest.title);
+
+            setUserQuest((prevQuests) =>
+                prevQuests.filter((quest) => quest._id !== questId)
+            );
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -39,12 +57,13 @@ const QuestsPage = () => {
         <>
             <main className="flex flex-col gap-6">
                 <QuestsPageHero />
-                <QuestList 
+                <QuestList
                     quests={userQuest}
                     viewCard={handleSelectedQuest}
+                    onDelete={handleDeleteQuest}
                 />
 
-                <QuestDetailsModal 
+                <QuestDetailsModal
                     isOpen={!!userQuest}
                     onClose={handleCloseQuestDetails}
                     quest={selectedQuest}

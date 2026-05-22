@@ -20,6 +20,7 @@ export const acceptQuestService = async (questId) => {
     return response.data;
 }
 
-export const deleteQuestService = async () => {
-    // TODO:
+export const deleteQuestService = async (questId) => {
+    const response = await api.delete(`/quests/${questId}`);
+    return response.data;
 }
