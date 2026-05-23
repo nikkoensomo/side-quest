@@ -19,7 +19,7 @@ const EditQuestForm = ({ onSuccess, quest }) => {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
-        setErrors({ ...error, [e.target.name]: "" })
+        setError({ ...error, [e.target.name]: "" })
     };
 
     const validate = () => {
@@ -53,7 +53,7 @@ const EditQuestForm = ({ onSuccess, quest }) => {
 
             console.log('Updated:', updatedForm);
 
-            onSuccess();
+            onSuccess(updatedForm);
         } catch (error) {
             console.log('error');
         } finally {
