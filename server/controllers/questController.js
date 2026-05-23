@@ -85,7 +85,7 @@ export const displayAllQuests = async (req, res) => {
 
 export const updateUserQuest = async (req, res) => {
     try {
-        const { title, description, status } = req.body;
+        const { title, description, status, pickupLocation, deliveryLocation, reward } = req.body;
 
         const updatedFields = {}
 
@@ -95,7 +95,13 @@ export const updateUserQuest = async (req, res) => {
 
         if (status) updatedFields.status = status;
 
-        const updatedQuest = await Quest.findByIdAndUpdate(
+        if (pickupLocation) updatedFields.pickupLocation = pickupLocation;
+
+        if (deliveryLocation) updatedFields.deliveryLocation = deliveryLocation;
+
+        if (reward) updatedFields.reward = reward;
+
+        const updatedQuest = await Quest.findOneAndDelete(
             { _id: req.params.id, postedBy: req.user.id },
             { $set: updatedFields },
             { new: true }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import QuestsPageHero from "../components/sections/QuestsPageHero";
 import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
+import EditQuestModal from '../components/modals/EditQuestModal.jsx';
 import TaskList from "../components/cards/TaskList";
 import QuestList from '../components/cards/QuestList.jsx';
 import QuestCard from '../components/cards/QuestCard.jsx';
@@ -13,8 +14,8 @@ const QuestsPage = () => {
 
     const isOwner = selectedQuest?.postedBy?._id === userQuest?._id;
 
-    const handleSelectedQuest = (userQuest) => {
-        setSelectedQuest(userQuest);
+    const handleSelectedQuest = (quest) => {
+        setSelectedQuest(quest);
     }
 
     const handleCloseQuestDetails = () => {
@@ -59,9 +60,9 @@ const QuestsPage = () => {
                 <QuestsPageHero />
                 <QuestList
                     quests={userQuest}
-                    viewCard={handleSelectedQuest}
                     onDelete={handleDeleteQuest}
                     isOwner='owner'
+                    onEdit={handleSelectedQuest}
                 />
 
                 <QuestDetailsModal
@@ -69,6 +70,12 @@ const QuestsPage = () => {
                     onClose={handleCloseQuestDetails}
                     quest={selectedQuest}
                     isOwner={isOwner}
+                />
+
+                <EditQuestModal 
+                    isOpen={!!selectedQuest}
+                    onClose={handleCloseQuestDetails}
+                    quest={selectedQuest}
                 />
             </main>
         </>
