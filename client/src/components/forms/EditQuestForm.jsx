@@ -11,53 +11,39 @@ const EditQuestForm = ({ onSuccess, quest }) => {
         deliveryLocation: quest.deliveryLocation,
     });
 
-    const [errors, setErrors] = useState({
-        title: '',
-        description: '',
-        reward: '',
-        pickupLocation: '',
-        deliveryLocation: '',
-        general: '',
+    const [error, setError] = useState({
+        general: ''
     });
 
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
-        setErrors({ ...errors, [e.target.name]: "" })
+        setErrors({ ...error, [e.target.name]: "" })
     };
 
     const validate = () => {
-        const newErrors = {};
+        const newError = {}
 
-        if (formData.title.trim() === quest.title) {
-            newErrors.title = "Please make changes.";
-        }
+        const newChanges =
+            formData.title.trim() !== quest.title ||
+            formData.description.trim() !== quest.description ||
+            formData.pickupLocation.trim() !== quest.pickupLocation ||
+            formData.deliveryLocation.trim() !== quest.deliveryLocation ||
+            Number(formData.reward) !== Number(quest.reward);
 
-        if (!formData.pickupLocation.trim()) {
-            newErrors.pickupLocation = "Please enter the pickup location.";
-        }
+        if (!newChanges) {
+            newError.general = "Please make changes before updating."
+        };
 
-        if (!formData.deliveryLocation.trim()) {
-            newErrors.deliveryLocation = "Please enter the delivery location.";
-        }
-
-        if (!formData.reward) {
-            newErrors.reward = "Please enter the reward price.";
-        }
-
-        if (!formData.description.trim()) {
-            newErrors.description = "Please enter a description.";
-        }
-
-        return newErrors;
+        return newError
     }
 
     const handleSubmit = async () => {
-        const newErrors = validate();
+        const newError = validate();
 
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
+        if (Object.keys(newError).length > 0) {
+            setError(newError);
             return;
         }
 
@@ -85,7 +71,7 @@ const EditQuestForm = ({ onSuccess, quest }) => {
                 placeholder={quest.title}
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
             />
-            {errors.title && <p className="text-red-500 text-xs">{errors.title}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <input
                 type="text"
@@ -96,7 +82,7 @@ const EditQuestForm = ({ onSuccess, quest }) => {
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
-            {errors.pickupLocation && <p className="text-red-500 text-xs">{errors.pickupLocation}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <input
                 type="text"
@@ -107,7 +93,7 @@ const EditQuestForm = ({ onSuccess, quest }) => {
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
-            {errors.deliveryLocation && <p className="text-red-500 text-xs">{errors.deliveryLocation}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <input
                 type="number"
@@ -118,7 +104,7 @@ const EditQuestForm = ({ onSuccess, quest }) => {
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
-            {errors.reward && <p className="text-red-500 text-xs">{errors.reward}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <textarea
                 type="text"
@@ -129,7 +115,7 @@ const EditQuestForm = ({ onSuccess, quest }) => {
                 rows="3"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
-            {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <BigBlackButton
                 label='Update'
