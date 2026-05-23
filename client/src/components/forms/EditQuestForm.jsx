@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { updateQuestService } from '../../services/questService';
 import BigBlackButton from '../buttons/BigBlackButton';
 
-const EditQuestForm = ({ onSuccess }) => {
+const EditQuestForm = ({ onSuccess, quest }) => {
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        reward: '',
-        pickupLocation: '',
-        deliveryLocation: '',
+        title: quest.title,
+        description: quest.description,
+        reward: quest.reward,
+        pickupLocation: quest.pickupLocation,
+        deliveryLocation: quest.deliveryLocation,
     });
 
     const [errors, setErrors] = useState({
@@ -30,8 +30,8 @@ const EditQuestForm = ({ onSuccess }) => {
     const validate = () => {
         const newErrors = {};
 
-        if (!formData.title.trim()) {
-            newErrors.title = "Please enter a title.";
+        if (formData.title.trim() === quest.title) {
+            newErrors.title = "Please make changes.";
         }
 
         if (!formData.pickupLocation.trim()) {
@@ -42,7 +42,7 @@ const EditQuestForm = ({ onSuccess }) => {
             newErrors.deliveryLocation = "Please enter the delivery location.";
         }
 
-        if (!formData.reward.trim()) {
+        if (!formData.reward) {
             newErrors.reward = "Please enter the reward price.";
         }
 
@@ -53,10 +53,17 @@ const EditQuestForm = ({ onSuccess }) => {
         return newErrors;
     }
 
-    const handleSubmit = async (questId, formData) => {
+    const handleSubmit = async () => {
+        const newErrors = validate();
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
+
         try {
             setIsLoading(true);
-            const updatedForm = await updateQuestService(questId, formData);
+            const updatedForm = await updateQuestService(quest._id, formData);
 
             console.log('Updated:', updatedForm);
 
@@ -75,7 +82,7 @@ const EditQuestForm = ({ onSuccess }) => {
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                placeholder="Title"
+                placeholder={quest.title}
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
             />
             {errors.title && <p className="text-red-500 text-xs">{errors.title}</p>}
@@ -85,7 +92,7 @@ const EditQuestForm = ({ onSuccess }) => {
                 name="pickupLocation"
                 value={formData.pickupLocation}
                 onChange={handleChange}
-                placeholder="Pickup Location"
+                placeholder={quest.pickupLocation}
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
@@ -96,7 +103,7 @@ const EditQuestForm = ({ onSuccess }) => {
                 name="deliveryLocation"
                 value={formData.deliveryLocation}
                 onChange={handleChange}
-                placeholder="Delivery Location"
+                placeholder={quest.deliveryLocation}
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
@@ -107,7 +114,7 @@ const EditQuestForm = ({ onSuccess }) => {
                 name="reward"
                 value={formData.reward}
                 onChange={handleChange}
-                placeholder="Reward Price"
+                placeholder={quest.reward}
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
@@ -118,13 +125,13 @@ const EditQuestForm = ({ onSuccess }) => {
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                placeholder="Description"
+                placeholder={quest.description}
                 rows="3"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
             {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
 
-            <BigBlackButton 
+            <BigBlackButton
                 label='Update'
                 onClick={handleSubmit}
                 isDisabled={isLoading}

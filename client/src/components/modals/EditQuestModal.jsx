@@ -18,6 +18,8 @@ const EditQuestModal = ({ isOpen, onClose, onEdit, quest }) => {
         }
     }, [onClose]);
 
+    console.log('from modal:', quest?.title);
+
     if (!isOpen || !quest) return null;
 
     return (
@@ -28,6 +30,7 @@ const EditQuestModal = ({ isOpen, onClose, onEdit, quest }) => {
                         <h2 className="text-black text-2xl">Edit Here</h2>
                         <EditQuestForm
                             onSuccess={onClose}
+                            quest={quest}
                         />
                     </div>
                 </div>

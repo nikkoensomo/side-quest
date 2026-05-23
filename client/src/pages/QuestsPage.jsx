@@ -11,16 +11,26 @@ const QuestsPage = () => {
     const [userQuest, setUserQuest] = useState([]);
     const [selectedQuest, setSelectedQuest] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [modalMode, setModalMode] = useState(null);
 
     const isOwner = selectedQuest?.postedBy?._id === userQuest?._id;
 
-    const handleSelectedQuest = (quest) => {
+    const handleOpenDetails = (quest) => {
         setSelectedQuest(quest);
+        setModalMode('details');
+    }
+
+    const handleOpenEdit = (quest) => {
+        setSelectedQuest(quest);
+        setModalMode('edit');
     }
 
     const handleCloseQuestDetails = () => {
         setSelectedQuest(null);
+        setModalMode(null);
     }
+
+    console.log('selected quest: ', selectedQuest);
 
     const handleDeleteQuest = async (questId) => {
         try {
@@ -54,9 +64,6 @@ const QuestsPage = () => {
         fetchUserQuest();
     }, [])
 
-    // test
-    // i123
-
     return (
         <>
             <main className="flex flex-col gap-6">
@@ -64,19 +71,20 @@ const QuestsPage = () => {
                 <QuestList
                     quests={userQuest}
                     onDelete={handleDeleteQuest}
+                    viewCard={handleOpenDetails}
                     isOwner='owner'
-                    onEdit={handleSelectedQuest}
+                    onEdit={handleOpenEdit}
                 />
 
                 <QuestDetailsModal
-                    isOpen={!!userQuest}
+                    isOpen={modalMode === 'details'}
                     onClose={handleCloseQuestDetails}
                     quest={selectedQuest}
                     isOwner={isOwner}
                 />
 
                 <EditQuestModal 
-                    isOpen={!!selectedQuest}
+                    isOpen={modalMode === 'edit'}
                     onClose={handleCloseQuestDetails}
                     quest={selectedQuest}
                 />
