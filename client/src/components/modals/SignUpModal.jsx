@@ -1,7 +1,6 @@
 import { useRef, useEffect } from 'react'
 
 import CloseButton from "../buttons/CloseButton";
-import CancelButton from "../buttons/CancelButton";
 import ConfirmButton from "../buttons/ConfirmButton";
 import OtherOptionButton from '../buttons/sign-up-buttons/OtherOptionButton';
 

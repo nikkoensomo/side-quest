@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import ConfirmButton from '../buttons/ConfirmButton';
 
-const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisabled }) => {
+const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisabled, isOwner }) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -19,6 +19,8 @@ const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisa
     }, [onClose]);
 
     if (!isOpen || !quest) return null;
+
+    console.log('is it the user:', isOwner);
 
     return (
         <>
@@ -53,12 +55,19 @@ const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisa
                                 <p className="mt-1 text-lg font-semibold text-amber-950">{quest.reward}</p>
                             </div>
 
-                            <ConfirmButton
-                                type='button'
-                                label={isLoading ? 'Accepting...' : 'Accept'}
-                                onClick={() => onAccept(quest._id)}
-                                disabled={isLoading || isDisabled}
-                            />
+                            {isOwner ? (
+                                <>
+                                </>
+                            ) : (
+                                <>
+                                    <ConfirmButton
+                                        type='button'
+                                        label={isLoading ? 'Accepting...' : 'Accept'}
+                                        onClick={() => onAccept(quest._id)}
+                                        disabled={isLoading || isDisabled}
+                                    />
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
