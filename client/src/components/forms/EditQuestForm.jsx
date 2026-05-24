@@ -2,65 +2,58 @@ import { useState } from 'react';
 import { updateQuestService } from '../../services/questService';
 import BigBlackButton from '../buttons/BigBlackButton';
 
-const EditQuestForm = ({ onSuccess }) => {
+const EditQuestForm = ({ onSuccess, quest, onClose }) => {
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        reward: '',
-        pickupLocation: '',
-        deliveryLocation: '',
+        title: quest.title,
+        description: quest.description,
+        reward: quest.reward,
+        pickupLocation: quest.pickupLocation,
+        deliveryLocation: quest.deliveryLocation,
     });
 
-    const [errors, setErrors] = useState({
-        title: '',
-        description: '',
-        reward: '',
-        pickupLocation: '',
-        deliveryLocation: '',
-        general: '',
+    const [error, setError] = useState({
+        general: ''
     });
 
     const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
-        setErrors({ ...errors, [e.target.name]: "" })
+        setError({ ...error, [e.target.name]: "" })
     };
 
     const validate = () => {
-        const newErrors = {};
+        const newError = {}
 
-        if (!formData.title.trim()) {
-            newErrors.title = "Please enter a title.";
-        }
+        const newChanges =
+            formData.title.trim() !== quest.title ||
+            formData.description.trim() !== quest.description ||
+            formData.pickupLocation.trim() !== quest.pickupLocation ||
+            formData.deliveryLocation.trim() !== quest.deliveryLocation ||
+            Number(formData.reward) !== Number(quest.reward);
 
-        if (!formData.pickupLocation.trim()) {
-            newErrors.pickupLocation = "Please enter the pickup location.";
-        }
+        if (!newChanges) {
+            newError.general = "Please make changes before updating."
+        };
 
-        if (!formData.deliveryLocation.trim()) {
-            newErrors.deliveryLocation = "Please enter the delivery location.";
-        }
-
-        if (!formData.reward.trim()) {
-            newErrors.reward = "Please enter the reward price.";
-        }
-
-        if (!formData.description.trim()) {
-            newErrors.description = "Please enter a description.";
-        }
-
-        return newErrors;
+        return newError
     }
 
-    const handleSubmit = async (questId, formData) => {
+    const handleSubmit = async () => {
+        const newError = validate();
+
+        if (Object.keys(newError).length > 0) {
+            setError(newError);
+            return;
+        }
+
         try {
             setIsLoading(true);
-            const updatedForm = await updateQuestService(questId, formData);
+            const updatedForm = await updateQuestService(quest._id, formData);
 
             console.log('Updated:', updatedForm);
 
-            onSuccess();
+            onSuccess(updatedForm);
         } catch (error) {
             console.log('error');
         } finally {
@@ -75,56 +68,56 @@ const EditQuestForm = ({ onSuccess }) => {
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                placeholder="Title"
+                placeholder={quest.title}
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
             />
-            {errors.title && <p className="text-red-500 text-xs">{errors.title}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <input
                 type="text"
                 name="pickupLocation"
                 value={formData.pickupLocation}
                 onChange={handleChange}
-                placeholder="Pickup Location"
+                placeholder={quest.pickupLocation}
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
-            {errors.pickupLocation && <p className="text-red-500 text-xs">{errors.pickupLocation}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <input
                 type="text"
                 name="deliveryLocation"
                 value={formData.deliveryLocation}
                 onChange={handleChange}
-                placeholder="Delivery Location"
+                placeholder={quest.deliveryLocation}
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
-            {errors.deliveryLocation && <p className="text-red-500 text-xs">{errors.deliveryLocation}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <input
                 type="number"
                 name="reward"
                 value={formData.reward}
                 onChange={handleChange}
-                placeholder="Reward Price"
+                placeholder={quest.reward}
                 rows="1"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
-            {errors.reward && <p className="text-red-500 text-xs">{errors.reward}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
             <textarea
                 type="text"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                placeholder="Description"
+                placeholder={quest.description}
                 rows="3"
                 className="w-3/4 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black resize-none"
             />
-            {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
+            {error.general && <p className="text-red-500 text-xs">{error.general}</p>}
 
-            <BigBlackButton 
+            <BigBlackButton
                 label='Update'
                 onClick={handleSubmit}
                 isDisabled={isLoading}
