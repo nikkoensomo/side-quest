@@ -25,15 +25,20 @@ const QuestsPage = () => {
         setModalMode('edit');
     }
 
-    const handleCloseQuestDetails = (updatedQuest) => {
+    const handleCloseModal = () => {
         setSelectedQuest(null);
         setModalMode(null);
+    }
 
+    const handleUpdateQuest = (updatedQuest) => {
         setUserQuest((prevQuest) =>
             prevQuest.map((quest) => 
                 quest._id === updatedQuest._id ? updatedQuest : quest
             )
         );
+
+        setSelectedQuest(null);
+        setModalMode(null);
     }
 
     console.log('selected quest: ', selectedQuest);
@@ -84,14 +89,14 @@ const QuestsPage = () => {
 
                 <QuestDetailsModal
                     isOpen={modalMode === 'details'}
-                    onClose={handleCloseQuestDetails}
+                    onClose={handleCloseModal}
                     quest={selectedQuest}
                     isOwner={isOwner}
                 />
 
                 <EditQuestModal
                     isOpen={modalMode === 'edit'}
-                    onClose={handleCloseQuestDetails}
+                    onClose={handleUpdateQuest}
                     quest={selectedQuest}
                 />
             </main>
