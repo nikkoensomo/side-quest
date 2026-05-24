@@ -31,29 +31,25 @@ const QuestCard = ({
                             <span className="text-amber-950 font-semibold text-xl">{quest.reward}</span>
                         </div>
 
+                        <ViewCardButton
+                            type='button'
+                            label='View Card'
+                            onClick={() => viewCard(quest)}
+                        />
 
-                        {variant === 'owner' ? (
-                            <></>
-                        ) : (
-                            <ViewCardButton
-                                type='button'
-                                label='View Card'
-                                onClick={() => viewCard(quest)}
-                            />
-                        )}
                     </div>
 
                     {variant === 'owner' ? (
                         <div className="w-full flex justify-between items-center">
                             <BigBlackButton
                                 label='Edit'
-                                onClick={() => onEdit(quest._id)}
+                                onClick={() => onEdit(quest)}
                             />
 
                             <DangerButton
                                 label='Delete'
                                 type='button'
-                                onClick={() => onDelete(quest._id)}
+                                onClick={() => onDelete(quest)}
                             />
                         </div>
                     ) : (
