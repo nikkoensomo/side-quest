@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import EditQuestForm from "../forms/EditQuestForm";
 
-const EditQuestModal = ({ isOpen, onClose, onEdit, quest }) => {
+const EditQuestModal = ({ isOpen, onClose, onEdit, quest, onSuccess }) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const EditQuestModal = ({ isOpen, onClose, onEdit, quest }) => {
                     <div className="flex flex-col gap-4 items-center">
                         <h2 className="text-black text-2xl">Edit Here</h2>
                         <EditQuestForm
-                            onSuccess={onClose}
+                            onSuccess={onSuccess}
                             quest={quest}
                         />
                     </div>

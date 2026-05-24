@@ -49,7 +49,7 @@ const QuestCard = ({
                             <DangerButton
                                 label='Delete'
                                 type='button'
-                                onClick={() => onDelete(quest._id)}
+                                onClick={() => onDelete(quest)}
                             />
                         </div>
                     ) : (

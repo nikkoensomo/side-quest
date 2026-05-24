@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { updateQuestService } from '../../services/questService';
 import BigBlackButton from '../buttons/BigBlackButton';
 
-const EditQuestForm = ({ onSuccess, quest }) => {
+const EditQuestForm = ({ onSuccess, quest, onClose }) => {
     const [formData, setFormData] = useState({
         title: quest.title,
         description: quest.description,

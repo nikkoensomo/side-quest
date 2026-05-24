@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import QuestsPageHero from "../components/sections/QuestsPageHero";
 import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
+import DangerModal from '../components/modals/DangerModal.jsx';
 import EditQuestModal from '../components/modals/EditQuestModal.jsx';
 import TaskList from "../components/cards/TaskList";
 import QuestList from '../components/cards/QuestList.jsx';
@@ -23,6 +24,11 @@ const QuestsPage = () => {
     const handleOpenEdit = (quest) => {
         setSelectedQuest(quest);
         setModalMode('edit');
+    }
+
+    const handleOpenDanger = (quest) => {
+        setSelectedQuest(quest);
+        setModalMode('delete');
     }
 
     const handleCloseModal = () => {
@@ -53,6 +59,8 @@ const QuestsPage = () => {
             setUserQuest((prevQuests) =>
                 prevQuests.filter((quest) => quest._id !== questId)
             );
+
+            handleCloseModal();
         } catch (error) {
             console.log(error);
         } finally {
@@ -81,7 +89,7 @@ const QuestsPage = () => {
                 <QuestsPageHero />
                 <QuestList
                     quests={userQuest}
-                    onDelete={handleDeleteQuest}
+                    onDelete={handleOpenDanger}
                     viewCard={handleOpenDetails}
                     isOwner='owner'
                     onEdit={handleOpenEdit}
@@ -96,8 +104,18 @@ const QuestsPage = () => {
 
                 <EditQuestModal
                     isOpen={modalMode === 'edit'}
-                    onClose={handleUpdateQuest}
+                    onClose={handleCloseModal}
+                    onSuccess={handleUpdateQuest}
                     quest={selectedQuest}
+                />
+
+                <DangerModal 
+                    type='delete'
+                    isOpen={modalMode === 'delete'}
+                    quest={selectedQuest}
+                    onClose={handleCloseModal}
+                    onDelete={handleDeleteQuest}
+                    isLoading={isLoading}
                 />
             </main>
         </>
