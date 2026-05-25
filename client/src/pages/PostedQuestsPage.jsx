@@ -8,7 +8,7 @@ import QuestList from '../components/cards/QuestList.jsx';
 import QuestCard from '../components/cards/QuestCard.jsx';
 import { getUserQuestService, deleteQuestService } from '../services/questService.js';
 
-const QuestsPage = () => {
+const PostedQuestsPage = () => {
     const [userQuest, setUserQuest] = useState([]);
     const [selectedQuest, setSelectedQuest] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +38,7 @@ const QuestsPage = () => {
 
     const handleUpdateQuest = (updatedQuest) => {
         setUserQuest((prevQuest) =>
-            prevQuest.map((quest) => 
+            prevQuest.map((quest) =>
                 quest._id === updatedQuest._id ? updatedQuest : quest
             )
         );
@@ -85,41 +85,38 @@ const QuestsPage = () => {
 
     return (
         <>
-            <main className="flex flex-col gap-6">
-                <QuestsPageHero />
-                <QuestList
-                    quests={userQuest}
-                    onDelete={handleOpenDanger}
-                    viewCard={handleOpenDetails}
-                    isOwner='owner'
-                    onEdit={handleOpenEdit}
-                />
+            <QuestList
+                quests={userQuest}
+                onDelete={handleOpenDanger}
+                viewCard={handleOpenDetails}
+                isOwner='owner'
+                onEdit={handleOpenEdit}
+            />
 
-                <QuestDetailsModal
-                    isOpen={modalMode === 'details'}
-                    onClose={handleCloseModal}
-                    quest={selectedQuest}
-                    isOwner={isOwner}
-                />
+            <QuestDetailsModal
+                isOpen={modalMode === 'details'}
+                onClose={handleCloseModal}
+                quest={selectedQuest}
+                isOwner={isOwner}
+            />
 
-                <EditQuestModal
-                    isOpen={modalMode === 'edit'}
-                    onClose={handleCloseModal}
-                    onSuccess={handleUpdateQuest}
-                    quest={selectedQuest}
-                />
+            <EditQuestModal
+                isOpen={modalMode === 'edit'}
+                onClose={handleCloseModal}
+                onSuccess={handleUpdateQuest}
+                quest={selectedQuest}
+            />
 
-                <DangerModal 
-                    type='delete'
-                    isOpen={modalMode === 'delete'}
-                    quest={selectedQuest}
-                    onClose={handleCloseModal}
-                    onDelete={handleDeleteQuest}
-                    isLoading={isLoading}
-                />
-            </main>
+            <DangerModal
+                type='delete'
+                isOpen={modalMode === 'delete'}
+                quest={selectedQuest}
+                onClose={handleCloseModal}
+                onDelete={handleDeleteQuest}
+                isLoading={isLoading}
+            />
         </>
     )
 }
 
-export default QuestsPage;
+export default PostedQuestsPage;
