@@ -3,9 +3,9 @@ import QuestsPageHero from '../components/sections/QuestsPageHero';
 
 const QuestsLayout = () => {
     const tabs = [
-        {label: 'Posted', to: '/dashboard/quests/posted'},
-        {label: 'Accepted', to: '/dashboard/quests/accepted'},
-        {label: 'Cancelled', to: '/dashboard/quests/cancelled'}
+        {label: 'Posted', to: '/dashboard-page/quests-page/posted'},
+        {label: 'Accepted', to: '/dashboard-page/quests-page/accepted'},
+        {label: 'Cancelled', to: '/dashboard/quests-page/cancelled'}
     ];
 
     return (
