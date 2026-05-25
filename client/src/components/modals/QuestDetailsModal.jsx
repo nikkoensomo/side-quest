@@ -1,10 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
 import ConfirmButton from '../buttons/ConfirmButton';
 
-const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisabled, isOwner }) => {
+const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisabled, isOwner, disableOutsideClose }) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
+        if (disableOutsideClose) return;
+
         function handleClickOutside(e) {
             if (modalRef.current && !modalRef.current.contains(e.target)) {
                 onClose();
@@ -16,7 +18,7 @@ const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisa
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
-    }, [onClose]);
+    }, [onClose, disableOutsideClose]);
 
     if (!isOpen || !quest) return null;
 
@@ -63,7 +65,7 @@ const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisa
                                     <ConfirmButton
                                         type='button'
                                         label={isLoading ? 'Accepting...' : 'Accept'}
-                                        onClick={() => onAccept(quest._id)}
+                                        onClick={() => onAccept(quest)}
                                         disabled={isLoading || isDisabled}
                                     />
                                 </>
