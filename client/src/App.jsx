@@ -6,6 +6,7 @@ import AboutUsPage from './pages/AboutUsPage'
 import ContactUsPage from './pages/ContactUsPage'
 import DashboardPage from './pages/DashboardPage'
 import PostedQuestsPage from './pages/PostedQuestsPage'
+import AcceptedQuestsPage from './pages/AcceptedQuestsPage'
 
 import DashboardLayout from './layouts/DashboardLayout'
 import QuestsLayout from './layouts/QuestsLayout'
@@ -27,6 +28,7 @@ function App() {
           <Route path="quests-page" element={<QuestsLayout /> } >
             <Route index element={<Navigate to="posted" replace /> } />
             <Route path="posted" element={<PostedQuestsPage /> } />
+            <Route path="taken" element={<AcceptedQuestsPage /> } />
           </Route>
         </Route>
 
