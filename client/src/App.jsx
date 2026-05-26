@@ -5,7 +5,6 @@ import LandingPage from './pages/LandingPage'
 import AboutUsPage from './pages/AboutUsPage'
 import ContactUsPage from './pages/ContactUsPage'
 import DashboardPage from './pages/DashboardPage'
-import QuestsPage from './pages/QuestsPage'
 import PostedQuestsPage from './pages/PostedQuestsPage'
 
 import DashboardLayout from './layouts/DashboardLayout'

@@ -83,6 +83,26 @@ export const displayAllQuests = async (req, res) => {
     }
 }
 
+export const displayUserTakenQuests =  async (req, res) => {
+    try {
+        const takenQuests = await Quest.find({
+            acceptedBy: req.user.id,
+            status: 'in-progress'
+        }).populate([
+            { path: 'acceptedBy', select: 'username'},
+            { path: 'postedBy', select: 'username' }
+        ]);
+
+        if (!takenQuests) {
+            return res.status(400).json({ message: 'No accepted quests' });
+        }
+
+        res.status(200).json(takenQuests);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error: error.message });
+    }
+}
+
 export const updateUserQuest = async (req, res) => {
     try {
         const { title, description, pickupLocation, deliveryLocation, reward } = req.body;

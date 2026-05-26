@@ -8,7 +8,6 @@ import CreateQuestModal from '../components/modals/CreateQuestModal.jsx';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
 import DangerModal from '../components/modals/DangerModal.jsx';
 import QuestList from '../components/cards/QuestList.jsx';
-import QuestsPage from './QuestsPage.jsx';
 
 const DashboardPage = () => {
     const [isCreateQuestModalOpen, setIsCreateQuestModalOpen] = useState(false);
