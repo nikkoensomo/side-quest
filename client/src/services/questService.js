@@ -10,6 +10,11 @@ export const getUserQuestService = async () => {
     return response.data;
 }
 
+export const getUserTakenQuestsService = async () => {
+    const response = await api.get('/quests/taken');
+    return response.data;
+}
+
 export const createQuestService = async (formData) => {
     const response = await api.post('/quests', formData);
     return response.data;

@@ -3,6 +3,7 @@ import {
     createQuest, 
     displayUserQuest,
     displayAllQuests,
+    displayUserTakenQuests,
     acceptQuest,
     updateUserQuest,
     deleteUserQuest
@@ -14,6 +15,7 @@ const router = express.Router();
 router.post('/', protect, createQuest);
 router.get('/', protect, displayAllQuests);
 router.get('/my-quests', protect, displayUserQuest);
+router.get('/taken', protect, displayUserTakenQuests);
 router.put('/accept/:id', protect, acceptQuest);
 router.put('/:id', protect, updateUserQuest);
 router.delete('/:id', protect, deleteUserQuest);

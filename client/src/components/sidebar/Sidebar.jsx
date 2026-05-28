@@ -1,7 +1,9 @@
 import { LayoutDashboard, CheckSquare, Settings, User, LogOutIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
 import SidebarNavItem from "./SidebarNavItem";
 import LogoutButton from "../buttons/LogoutButton";
+import ConfirmationModal from "../modals/ConfirmationModal";
 
 const navItems = [
     { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard-page' },
@@ -12,6 +14,12 @@ const navItems = [
 
 const Sidebar = () => {
     const navigate = useNavigate();
+
+    const [modalMode, setModalMode] = useState(null);
+
+    const handleOpenModal = () => {
+        setModalMode('logout');
+    }
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -39,10 +47,15 @@ const Sidebar = () => {
                         label='Logout'
                         icon={LogOutIcon}
                         type='button'
-                        onClick={handleLogout}
+                        onClick={handleOpenModal}
                     />
                 </nav>
             </aside>
+
+            <ConfirmationModal 
+                isOpen={modalMode === 'logout'}
+                onClick={handleLogout}
+            />
         </>
     )
 }
