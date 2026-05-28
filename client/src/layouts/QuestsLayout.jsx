@@ -5,7 +5,8 @@ const QuestsLayout = () => {
     const tabs = [
         {label: 'Posted', to: '/dashboard-page/quests-page/posted'},
         {label: 'Taken', to: '/dashboard-page/quests-page/taken'},
-        {label: 'Cancelled', to: '/dashboard/quests-page/cancelled'}
+        {label: 'Cancelled', to: '/dashboard-page/quests-page/cancelled'},
+        {label: 'Completed', to: '/dashboard-page/quests-page/completed'}
     ];
 
     return (
