@@ -6,8 +6,8 @@ import DashboardPageHero from "../components/sections/DashboardPageHero";
 import CreateButton from "../components/buttons/CreateButton.jsx";
 import CreateQuestModal from '../components/modals/CreateQuestModal.jsx';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal.jsx';
+import DangerModal from '../components/modals/DangerModal.jsx';
 import QuestList from '../components/cards/QuestList.jsx';
-import QuestsPage from './QuestsPage.jsx';
 
 const DashboardPage = () => {
     const [isCreateQuestModalOpen, setIsCreateQuestModalOpen] = useState(false);
@@ -15,20 +15,30 @@ const DashboardPage = () => {
     const [quests, setQuests] = useState([]);
     const [user, setUser] = useState(null);
     const [selectedQuest, setSelectedQuest] = useState(null);
+    const [modalMode, setModalMode] = useState(null);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const isOwner = selectedQuest?.postedBy?._id === user?._id;
 
     const handleCreateQuest = () => {
-        setIsCreateQuestModalOpen(true);
+        setModalMode('create');
     }
 
     const handleOpenQuestDetails = (quest) => {
         setSelectedQuest(quest);
+        setModalMode('details');
     }
 
-    const handleCloseQuestDetails = () => {
+    const handleConfirmModal = (quest) => {
+        setSelectedQuest(quest);
+        setIsConfirmModalOpen(true);
+    }
+
+    const handleCloseModal = () => {
         setSelectedQuest(null);
+        setIsConfirmModalOpen(false);
+        setModalMode(null);
     }
 
     const handleAcceptQuest = async (questId) => {
@@ -42,9 +52,9 @@ const DashboardPage = () => {
                 prevQuests.filter((quest) => quest._id !== questId)
             );
 
-            setSelectedQuest(null);
+            handleCloseModal();
         } catch (error) {
-            console.log(error);
+            console.log(error.response?.data || error);
         } finally {
             setIsLoading(false);
         }
@@ -98,17 +108,28 @@ const DashboardPage = () => {
                 />
 
                 <CreateQuestModal
-                    isOpen={isCreateQuestModalOpen}
-                    onClose={(() => setIsCreateQuestModalOpen(false))}
+                    isOpen={modalMode === 'create'}
+                    onClose={handleCloseModal}
                 />
 
                 <QuestDetailsModal
-                    isOpen={!!selectedQuest}
+                    isOpen={modalMode === 'details'}
                     quest={selectedQuest}
-                    onClose={handleCloseQuestDetails}
-                    onAccept={handleAcceptQuest}
+                    onClose={handleCloseModal}
+                    onAccept={handleConfirmModal}
                     isLoading={isLoading}
                     isDisabled={isOwner}
+                    disableOutsideClose={isConfirmModalOpen}
+                />
+
+                <DangerModal 
+                    buttonType='button'
+                    type='confirm'
+                    isOpen={isConfirmModalOpen}
+                    quest={selectedQuest}
+                    onClose={handleCloseModal}
+                    onConfirm={handleAcceptQuest}
+                    isLoading={isLoading}
                 />
             </main>
 
