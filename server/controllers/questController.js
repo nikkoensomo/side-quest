@@ -105,7 +105,7 @@ export const displayUserTakenQuests =  async (req, res) => {
 
 export const completeQuest = async (req, res) => {
     try {
-        const completedQuest = Quest.findOneAndUpdate(
+        const completedQuest = await Quest.findOneAndUpdate(
             { _id: req.params.id, acceptedBy: req.user.id , status: 'in-progress' },
             { $set: {status: 'completed' } },
             { new: true, runValidators: true }
