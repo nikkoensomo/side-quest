@@ -103,6 +103,26 @@ export const displayUserTakenQuests =  async (req, res) => {
     }
 }
 
+export const displayUserCompletedQuests = async (req, res) => {
+    try {
+        const completedQuests = await Quest.find({
+            acceptedBy: req.user.id,
+            status: 'completed'
+        }).populate([
+            { path: 'acceptedBy', select: 'username' },
+            { path: 'postedBy', select: 'username' }
+        ]);
+
+        if (!completedQuests) {
+            return res.status(400).json({ message: 'No completed quests.' });
+        }
+
+        res.status(200).json(completedQuests);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error: error.message });
+    }
+}
+
 export const completeQuest = async (req, res) => {
     try {
         const completedQuest = await Quest.findOneAndUpdate(
