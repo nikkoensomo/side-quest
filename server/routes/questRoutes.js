@@ -5,6 +5,7 @@ import {
     displayAllQuests,
     displayUserTakenQuests,
     acceptQuest,
+    completedQuest,
     updateUserQuest,
     deleteUserQuest
 } from '../controllers/questController.js';
@@ -17,6 +18,7 @@ router.get('/', protect, displayAllQuests);
 router.get('/my-quests', protect, displayUserQuest);
 router.get('/taken', protect, displayUserTakenQuests);
 router.put('/accept/:id', protect, acceptQuest);
+router.put('/complete/:id', protect, completedQuest);
 router.put('/:id', protect, updateUserQuest);
 router.delete('/:id', protect, deleteUserQuest);
 

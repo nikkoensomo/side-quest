@@ -103,6 +103,24 @@ export const displayUserTakenQuests =  async (req, res) => {
     }
 }
 
+export const completeQuest = async (req, res) => {
+    try {
+        const completedQuest = Quest.findOneAndUpdate(
+            { _id: req.params.id, acceptedBy: req.user.id , status: 'in-progress' },
+            { $set: {status: 'completed' } },
+            { new: true, runValidators: true }
+        )
+
+        if (!completedQuest) {
+            return res.status(400).json({ message: 'Quest completion cannot be done' });
+        }
+
+        res.status(200).json(completedQuest);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error: error.message });
+    }
+}
+
 export const updateUserQuest = async (req, res) => {
     try {
         const { title, description, pickupLocation, deliveryLocation, reward } = req.body;
