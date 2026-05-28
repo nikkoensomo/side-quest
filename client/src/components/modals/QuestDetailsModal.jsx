@@ -57,18 +57,12 @@ const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisa
                                 <p className="mt-1 text-lg font-semibold text-amber-950">{quest.reward}</p>
                             </div>
 
-                            {isOwner ? (
-                                <>
-                                </>
-                            ) : (
-                                <>
-                                    <ConfirmButton
-                                        type='button'
-                                        label={isLoading ? 'Accepting...' : 'Accept'}
-                                        onClick={() => onAccept(quest)}
-                                        disabled={isLoading || isDisabled}
-                                    />
-                                </>
+                            {!isOwner && quest.status === 'open' && (
+                                <ConfirmButton
+                                    type="button"
+                                    label="Accept"
+                                    onClick={() => onAccept(quest)}
+                                />
                             )}
                         </div>
                     </div>
