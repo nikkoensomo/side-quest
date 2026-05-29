@@ -15,6 +15,11 @@ export const getUserTakenQuestsService = async () => {
     return response.data;
 }
 
+export const getUserCompletedQuestsService = async () => {
+    const response = await api.get('/quests/completed');
+    return response.data;
+}
+
 export const createQuestService = async (formData) => {
     const response = await api.post('/quests', formData);
     return response.data;
