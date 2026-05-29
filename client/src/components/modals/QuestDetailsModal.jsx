@@ -1,7 +1,17 @@
 import { useRef, useEffect, useState } from 'react';
 import ConfirmButton from '../buttons/ConfirmButton';
 
-const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisabled, isOwner, disableOutsideClose }) => {
+const QuestDetailsModal = ({ 
+    isOpen, 
+    onClose, 
+    quest, 
+    onAccept, 
+    onComplete,
+    isLoading, 
+    isDisabled, 
+    isOwner, 
+    disableOutsideClose 
+}) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -61,6 +71,14 @@ const QuestDetailsModal = ({ isOpen, onClose, quest, onAccept, isLoading, isDisa
                                 <ConfirmButton
                                     type="button"
                                     label="Accept"
+                                    onClick={() => onAccept(quest)}
+                                />
+                            )}
+
+                            {!isOwner && quest.status === 'in-progress' && (
+                                <ConfirmButton 
+                                    type="button"
+                                    label="Complete"
                                     onClick={() => onAccept(quest)}
                                 />
                             )}
