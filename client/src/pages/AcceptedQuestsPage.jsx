@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getUserTakenQuestsService } from '../services/questService';
+import { getUserTakenQuestsService, completeQuestService } from '../services/questService';
 import QuestList from '../components/cards/QuestList';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal';
+import ConfirmationModal from '../components/modals/ConfirmationModal';
 
 
 const AcceptedQuestsPage = () => {
@@ -17,9 +18,29 @@ const AcceptedQuestsPage = () => {
         setModalMode('details');
     }
 
+    const handleCompleteModal = (quest) => {
+        setSelectedQuest(quest);
+        setModalMode('complete');
+    }
+
     const handleCloseModal = () => {
         setSelectedQuest(null);
         setModalMode(null);
+    }
+
+    const handleCompleteQuest = async (questId) => {
+        try {
+            setIsLoading(true);
+
+            const completedQuest = await completeQuestService(questId);
+            console.log(completedQuest);
+
+            handleCloseModal();
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -51,9 +72,19 @@ const AcceptedQuestsPage = () => {
             <QuestDetailsModal 
                 isOpen={modalMode === 'details'}
                 onClose={handleCloseModal}
+                onAccept={handleCompleteModal}
                 quest={selectedQuest}
                 isLoading={isLoading}
                 isOwner={isOwner}
+            />
+
+            <ConfirmationModal 
+                isOpen={modalMode === 'complete'}
+                onClose={handleCloseModal}
+                onClick={handleCompleteQuest}
+                text='Are you sure you want to complete this quest?'
+                label='Complete'
+                quest={selectedQuest}
             />
         </>
     );

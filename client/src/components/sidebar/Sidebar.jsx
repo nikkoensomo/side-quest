@@ -54,6 +54,8 @@ const Sidebar = () => {
 
             <ConfirmationModal 
                 isOpen={modalMode === 'logout'}
+                text='Are you sure you want to logout?'
+                label='Logout'
                 onClick={handleLogout}
             />
         </>
