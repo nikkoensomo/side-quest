@@ -141,6 +141,30 @@ export const completeQuest = async (req, res) => {
     }
 }
 
+export const cancelQuest = async (req, res) => {
+    try {
+        const deletedQuest = await Quest.findOneAndUpdate(
+            { _id: req.params.id, acceptedBy: req.user.id },
+            { 
+                $set: {
+                    isDeleted: true,
+                    deletedAt: new Date(),
+                    status: 'cancelled'
+                }
+            },
+            { new: true, runValidators: true }
+        )
+
+        if (!deletedQuest) {
+            return res.status(400).json({ message: 'Quest cannot be cancelled.' });
+        }
+
+        res.status(200).json(deletedQuest);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error: error.message });
+    }
+}
+
 export const updateUserQuest = async (req, res) => {
     try {
         const { title, description, pickupLocation, deliveryLocation, reward } = req.body;
