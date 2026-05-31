@@ -35,6 +35,11 @@ export const completeQuestService = async (questId) => {
     return response.data;
 }
 
+export const cancelQuestService = async (questId) => {
+    const response = await api.put(`/quests/cancel/${questId}`);
+    return response.data;
+}
+
 export const deleteQuestService = async (questId) => {
     const response = await api.delete(`/quests/${questId}`);
     return response.data;

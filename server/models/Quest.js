@@ -42,8 +42,16 @@ const questSchema = new mongoose.Schema({
         enum: ['open', 'in-progress', 'completed', 'cancelled'],
         default: 'open',
         required: true,
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
+    deletedAt: {
+        type: Date,
+        default: null
     }
-
+    
 }, { timestamps: true });
 
 const Quest = mongoose.model("Quest", questSchema);
