@@ -141,7 +141,7 @@ export const completeQuest = async (req, res) => {
     }
 }
 
-export const cancelQuest = async (req, res) => {
+export const cancelAcceptedQuest = async (req, res) => {
     try {
         const deletedQuest = await Quest.findOneAndUpdate(
             { _id: req.params.id, acceptedBy: req.user.id },
