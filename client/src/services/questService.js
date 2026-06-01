@@ -35,7 +35,7 @@ export const completeQuestService = async (questId) => {
     return response.data;
 }
 
-export const cancelQuestService = async (questId) => {
+export const cancelAcceptedQuestService = async (questId) => {
     const response = await api.put(`/quests/cancel/${questId}`);
     return response.data;
 }
