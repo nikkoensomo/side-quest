@@ -20,6 +20,11 @@ export const getUserCompletedQuestsService = async () => {
     return response.data;
 }
 
+export const getUserCancelledQuestsService = async () => {
+    const response = await api.get('/quests/completed');
+    return response.data;
+}
+
 export const createQuestService = async (formData) => {
     const response = await api.post('/quests', formData);
     return response.data;
@@ -35,7 +40,7 @@ export const completeQuestService = async (questId) => {
     return response.data;
 }
 
-export const cancelQuestService = async (questId) => {
+export const cancelAcceptedQuestService = async (questId) => {
     const response = await api.put(`/quests/cancel/${questId}`);
     return response.data;
 }
