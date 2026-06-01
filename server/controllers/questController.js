@@ -123,6 +123,25 @@ export const displayUserCompletedQuests = async (req, res) => {
     }
 }
 
+export const displayUserCancelledQuests = async (req, res) => {
+    try {
+        const cancelledQuests = await Quest.find(
+            { acceptedBy: req.user.id, isDeleted: true, status: 'cancelled' }
+        ).populate([
+            { path: 'acceptedBy', select: 'username' },
+            { path: 'postedBy', select: 'username' } 
+        ]);
+
+        if (!cancelledQuests) {
+            return res.status(400).json({ message: 'No cancelled quests' });
+        }
+
+        res.status(200).json(cancelledQuests);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+}
+
 export const completeQuest = async (req, res) => {
     try {
         const completedQuest = await Quest.findOneAndUpdate(
