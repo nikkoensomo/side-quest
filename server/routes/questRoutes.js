@@ -8,6 +8,7 @@ import {
     acceptQuest,
     completeQuest,
     updateUserQuest,
+    cancelAcceptedQuest,
     deleteUserQuest
 } from '../controllers/questController.js';
 import { protect } from '../middleware/authMiddleware.js';
@@ -22,6 +23,7 @@ router.get('/completed', protect, displayUserCompletedQuests);
 router.put('/accept/:id', protect, acceptQuest);
 router.put('/complete/:id', protect, completeQuest);
 router.put('/:id', protect, updateUserQuest);
+router.put('/cancel/:id', protect, cancelAcceptedQuest);
 router.delete('/:id', protect, deleteUserQuest);
 
 export default router;
