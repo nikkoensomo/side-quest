@@ -5,6 +5,7 @@ import {
     displayAllQuests,
     displayUserTakenQuests,
     displayUserCompletedQuests,
+    displayUserCancelledQuests,
     acceptQuest,
     completeQuest,
     updateUserQuest,
@@ -20,6 +21,7 @@ router.get('/', protect, displayAllQuests);
 router.get('/my-quests', protect, displayUserQuest);
 router.get('/taken', protect, displayUserTakenQuests);
 router.get('/completed', protect, displayUserCompletedQuests);
+router.get('/cancelled', protect, displayUserCancelledQuests);
 router.put('/accept/:id', protect, acceptQuest);
 router.put('/complete/:id', protect, completeQuest);
 router.put('/:id', protect, updateUserQuest);
