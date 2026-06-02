@@ -8,6 +8,7 @@ import DashboardPage from './pages/DashboardPage'
 import PostedQuestsPage from './pages/PostedQuestsPage'
 import AcceptedQuestsPage from './pages/AcceptedQuestsPage'
 import CompletedQuestsPage from './pages/CompletedQuestsPage'
+import CancelledQuestsPage from './pages/CancelledQuestsPage'
 
 import DashboardLayout from './layouts/DashboardLayout'
 import QuestsLayout from './layouts/QuestsLayout'
@@ -31,6 +32,7 @@ function App() {
             <Route path="posted" element={<PostedQuestsPage /> } />
             <Route path="taken" element={<AcceptedQuestsPage /> } />
             <Route path="completed" element={<CompletedQuestsPage /> } />
+            <Route path="cancelled" element={<CancelledQuestsPage /> } /> 
           </Route>
         </Route>
 
