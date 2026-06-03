@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import SidebarNavItem from "./SidebarNavItem";
 import LogoutButton from "../buttons/LogoutButton";
+import LogoutConfirmationModal from "../modals/LogoutConfirmationModal";
 import ConfirmationModal from "../modals/ConfirmationModal";
 
 const navItems = [
@@ -52,7 +53,7 @@ const Sidebar = () => {
                 </nav>
             </aside>
 
-            <ConfirmationModal 
+            <LogoutConfirmationModal 
                 isOpen={modalMode === 'logout'}
                 text='Are you sure you want to logout?'
                 label='Logout'
