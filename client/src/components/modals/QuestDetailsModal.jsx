@@ -79,8 +79,6 @@ const QuestDetailsModal = ({
                     )}
 
                     {!isOwner && quest.status === 'in-progress' && (
-
-
                         <div className="flex justify-between items-center mt-4">
                             <ConfirmButton
                                 type="button"
@@ -94,7 +92,6 @@ const QuestDetailsModal = ({
                                 onClick={() => onCancel(quest)}
                             />
                         </div>
-
                     )}
                 </div>
             </div>
