@@ -21,7 +21,7 @@ export const getUserCompletedQuestsService = async () => {
 }
 
 export const getUserCancelledQuestsService = async () => {
-    const response = await api.get('/quests/completed');
+    const response = await api.get('/quests/cancelled');
     return response.data;
 }
 

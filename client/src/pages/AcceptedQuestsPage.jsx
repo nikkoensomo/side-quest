@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserTakenQuestsService, completeQuestService } from '../services/questService';
+import { getUserTakenQuestsService, completeQuestService, cancelAcceptedQuestService } from '../services/questService';
 import QuestList from '../components/cards/QuestList';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal';
 import ConfirmationModal from '../components/modals/ConfirmationModal';
@@ -43,6 +43,20 @@ const AcceptedQuestsPage = () => {
         }
     }
 
+    const handleCancelQuest = async (questId) => {
+        try {
+            setIsLoading(true);
+
+            const cancelledQuest = await cancelAcceptedQuestService(questId);
+
+            console.log(cancelledQuest);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     useEffect(() => {
         async function getTakenQuests() {
             try {
@@ -63,22 +77,23 @@ const AcceptedQuestsPage = () => {
 
     return (
         <>
-            <QuestList 
+            <QuestList
                 quests={takenQuests}
                 viewCard={handleOpenDetails}
                 isOwner={isOwner}
             />
 
-            <QuestDetailsModal 
+            <QuestDetailsModal
                 isOpen={modalMode === 'details'}
                 onClose={handleCloseModal}
                 onAccept={handleCompleteModal}
+                onCancel={handleCancelQuest}
                 quest={selectedQuest}
                 isLoading={isLoading}
                 isOwner={isOwner}
             />
 
-            <ConfirmationModal 
+            <ConfirmationModal
                 isOpen={modalMode === 'complete'}
                 onClose={handleCloseModal}
                 onClick={handleCompleteQuest}
