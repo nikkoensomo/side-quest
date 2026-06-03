@@ -1,16 +1,17 @@
 import { useRef, useEffect, useState } from 'react';
 import ConfirmButton from '../buttons/ConfirmButton';
 
-const QuestDetailsModal = ({ 
-    isOpen, 
-    onClose, 
-    quest, 
-    onAccept, 
+const QuestDetailsModal = ({
+    isOpen,
+    onClose,
+    quest,
+    onAccept,
     onComplete,
-    isLoading, 
-    isDisabled, 
-    isOwner, 
-    disableOutsideClose 
+    onCancel,
+    isLoading,
+    isDisabled,
+    isOwner,
+    disableOutsideClose
 }) => {
     const modalRef = useRef(null);
 
@@ -67,23 +68,34 @@ const QuestDetailsModal = ({
                                 <p className="mt-1 text-lg font-semibold text-amber-950">{quest.reward}</p>
                             </div>
 
-                            {!isOwner && quest.status === 'open' && (
-                                <ConfirmButton
-                                    type="button"
-                                    label="Accept"
-                                    onClick={() => onAccept(quest)}
-                                />
-                            )}
-
-                            {!isOwner && quest.status === 'in-progress' && (
-                                <ConfirmButton 
-                                    type="button"
-                                    label="Complete"
-                                    onClick={() => onAccept(quest)}
-                                />
-                            )}
                         </div>
                     </div>
+                    {!isOwner && quest.status === 'open' && (
+                        <ConfirmButton
+                            type="button"
+                            label="Accept"
+                            onClick={() => onAccept(quest)}
+                        />
+                    )}
+
+                    {!isOwner && quest.status === 'in-progress' && (
+
+
+                        <div className="flex justify-between items-center mt-4">
+                            <ConfirmButton
+                                type="button"
+                                label="Complete"
+                                onClick={() => onAccept(quest)}
+                            />
+
+                            <ConfirmButton
+                                type="button"
+                                label="Cancel"
+                                onClick={() => onCancel(quest)}
+                            />
+                        </div>
+
+                    )}
                 </div>
             </div>
         </>
