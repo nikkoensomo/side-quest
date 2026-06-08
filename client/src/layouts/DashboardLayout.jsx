@@ -3,6 +3,8 @@ import DashboardHeader from "../components/headers/DashboardHeader";
 import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
     return (
         <>
             <div className="flex h-screen">

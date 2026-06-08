@@ -3,6 +3,7 @@ import { getUserTakenQuestsService, completeQuestService, cancelAcceptedQuestSer
 import QuestList from '../components/cards/QuestList';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal';
 import ConfirmationModal from '../components/modals/ConfirmationModal';
+import CancelQuestModal from '../components/modals/CancelQuestModal';
 
 
 const AcceptedQuestsPage = () => {
@@ -21,6 +22,11 @@ const AcceptedQuestsPage = () => {
     const handleCompleteModal = (quest) => {
         setSelectedQuest(quest);
         setModalMode('complete');
+    }
+
+    const handleCancelModal = (quest) => {
+        setSelectedQuest(quest);
+        setModalMode('cancel');
     }
 
     const handleCloseModal = () => {
@@ -87,7 +93,7 @@ const AcceptedQuestsPage = () => {
                 isOpen={modalMode === 'details'}
                 onClose={handleCloseModal}
                 onAccept={handleCompleteModal}
-                onCancel={handleCancelQuest}
+                onCancel={handleCancelModal}
                 quest={selectedQuest}
                 isLoading={isLoading}
                 isOwner={isOwner}
@@ -99,6 +105,15 @@ const AcceptedQuestsPage = () => {
                 onClick={handleCompleteQuest}
                 text='Are you sure you want to complete this quest?'
                 label='Complete'
+                quest={selectedQuest}
+            />
+
+            <CancelQuestModal 
+                isOpen={modalMode === 'cancel'}
+                onClose={handleCloseModal}
+                onClick={handleCancelQuest}
+                text='Are you sure you want to cancel this quest?'
+                label='Cancel'
                 quest={selectedQuest}
             />
         </>

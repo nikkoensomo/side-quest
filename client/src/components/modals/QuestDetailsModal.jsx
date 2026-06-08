@@ -89,7 +89,7 @@ const QuestDetailsModal = ({
                             <ConfirmButton
                                 type="button"
                                 label="Cancel"
-                                onClick={() => onCancel(quest)}
+                                onClick={() => onCancel(quest._id)}
                             />
                         </div>
                     )}
