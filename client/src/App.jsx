@@ -9,6 +9,7 @@ import PostedQuestsPage from './pages/PostedQuestsPage'
 import AcceptedQuestsPage from './pages/AcceptedQuestsPage'
 import CompletedQuestsPage from './pages/CompletedQuestsPage'
 import CancelledQuestsPage from './pages/CancelledQuestsPage'
+import SettingsPage from './pages/SettingsPage'
 
 import DashboardLayout from './layouts/DashboardLayout'
 import QuestsLayout from './layouts/QuestsLayout'
@@ -34,6 +35,7 @@ function App() {
             <Route path="completed" element={<CompletedQuestsPage /> } />
             <Route path="cancelled" element={<CancelledQuestsPage /> } /> 
           </Route>
+          <Route path="settings-page" element={<SettingsPage /> } />
         </Route>
 
         <Route path="/about-us-page" element={<AboutUsPage></AboutUsPage>} />
