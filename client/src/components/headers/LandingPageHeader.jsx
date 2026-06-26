@@ -1,44 +1,35 @@
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
-import LoginButton from "../buttons/LoginButton"
-import GetStartedButton from "../buttons/GetStartedButton"
+import LoginButton from "../buttons/LoginButton";
+import GetStartedButton from "../buttons/GetStartedButton";
 
 const LandingPageHeader = ({ onGetStarted, onLogin }) => {
-    return(
-        <>
-            <header className="w-full bg-white px-6 py-4 flex flex-row justify-between items-center border-b border-gray-200">
-                <span className="text-black text-2xl font-bold">SideQuest</span>
-                <nav className="flex gap-6">
-                    <NavLink
-                        to="/landing-page"
-                        className="text-black hover:text-gray-300"
-                    >
+    return (
+        <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/90 backdrop-blur">
+            <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+                <span className="text-xl font-bold text-zinc-950">SideQuest</span>
+
+                <nav className="hidden gap-6 text-sm font-medium text-gray-600 md:flex">
+                    <NavLink to="/" className="hover:text-zinc-950">
                         Home
                     </NavLink>
-                    <NavLink
-                        to="/about-us-page"
-                        className="text-black hover:text-gray-300"
-                    >
+
+                    <NavLink to="/about-us-page" className="hover:text-zinc-950">
                         About Us
                     </NavLink>
-                    <NavLink
-                        to="/contact-us-page"
-                        className="text-black hover:text-gray-300"
-                    >
+
+                    <NavLink to="/contact-us-page" className="hover:text-zinc-950">
                         Contact Us
                     </NavLink>
                 </nav>
-                <div className="flex gap-4">
-                    <LoginButton
-                        onClick={onLogin}
-                    />
-                    <GetStartedButton
-                        onClick={onGetStarted}
-                    />
+
+                <div className="flex gap-3">
+                    <LoginButton onClick={onLogin} />
+                    <GetStartedButton onClick={onGetStarted} />
                 </div>
-            </header>
-        </>
+            </div>
+        </header>
     );
-}
+};
 
 export default LandingPageHeader;

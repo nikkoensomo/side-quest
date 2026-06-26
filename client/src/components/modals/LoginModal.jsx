@@ -1,64 +1,56 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react';
 
 import LoginForm from '../forms/LoginForm';
-import OtherOptionButton from '../buttons/sign-up-buttons/OtherOptionButton';
 
 const LoginModal = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
-
     const modalRef = useRef(null);
 
     useEffect(() => {
         function handleClickOutside(e) {
+            if (!isOpen) return;
+
             if (modalRef.current && !modalRef.current.contains(e.target)) {
                 onClose();
             }
         }
 
         document.addEventListener("mousedown", handleClickOutside);
-        
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-        }
-    }, [onClose]);
+        };
+    }, [isOpen, onClose]);
+
+    if (!isOpen) return null;
 
     return (
-        <>
-            <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-                <div ref={modalRef} className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-                    <div className="flex flex-col justify-center items-center mb-4">
-                        <h2 className="text-black text-2xl font-semibold mb-4">Welcome back!</h2>
-                        <p className="text-gray-400 text-sm text-center px-6">
-                            Come back in and go right where you left!
-                        </p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+            <div
+                ref={modalRef}
+                className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg"
+            >
+                <div className="mb-6 flex flex-col items-center text-center">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-zinc-950 text-lg font-bold text-white">
+                        SQ
                     </div>
 
-                    <LoginForm
-                        onSuccess={onClose}
-                    />
+                    <h2 className="text-2xl font-semibold text-zinc-950">
+                        Welcome back
+                    </h2>
 
-                    <p className="text-gray-400 text-sm text-center px-6 mt-4">
-                        Or continue with
+                    <p className="mt-2 max-w-sm text-sm leading-6 text-gray-500">
+                        Continue managing your quests, accepted tasks, and deliveries.
                     </p>
-
-                    <div className="flex justify-center items-center gap-1 mt-4">
-                        <OtherOptionButton
-                            label="Facebook"
-                            onClick="" // TODO
-                        />
-                        <OtherOptionButton
-                            label="Google"
-                            onClick="" // TODO
-                        />
-                        <OtherOptionButton
-                            label="Apple"
-                            onClick="" // TODO
-                        />
-                    </div>
                 </div>
+
+                <LoginForm onSuccess={onClose} />
+
+                <p className="mt-5 text-center text-sm text-gray-500">
+                    New to SideQuest? Create an account from the header.
+                </p>
             </div>
-        </>
+        </div>
     );
-}
+};
 
 export default LoginModal;
