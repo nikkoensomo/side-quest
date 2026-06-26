@@ -92,7 +92,7 @@ const AcceptedQuestsPage = () => {
             <QuestDetailsModal
                 isOpen={modalMode === 'details'}
                 onClose={handleCloseModal}
-                onAccept={handleCompleteModal}
+                onComplete={handleCompleteModal}
                 onCancel={handleCancelModal}
                 quest={selectedQuest}
                 isLoading={isLoading}
@@ -103,18 +103,20 @@ const AcceptedQuestsPage = () => {
                 isOpen={modalMode === 'complete'}
                 onClose={handleCloseModal}
                 onClick={handleCompleteQuest}
-                text='Are you sure you want to complete this quest?'
-                label='Complete'
+                text="Are you sure you want to complete this quest?"
+                label="Complete"
                 quest={selectedQuest}
+                isLoading={isLoading}
             />
 
-            <CancelQuestModal 
+            <CancelQuestModal
                 isOpen={modalMode === 'cancel'}
                 onClose={handleCloseModal}
                 onClick={handleCancelQuest}
-                text='Are you sure you want to cancel this quest?'
-                label='Cancel'
+                text="Are you sure you want to cancel this quest?"
+                label="Cancel Quest"
                 quest={selectedQuest}
+                isLoading={isLoading}
             />
         </>
     );

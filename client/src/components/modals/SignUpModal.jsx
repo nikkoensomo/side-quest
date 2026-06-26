@@ -1,19 +1,14 @@
-import { useRef, useEffect } from 'react'
-
-import CloseButton from "../buttons/CloseButton";
-import ConfirmButton from "../buttons/ConfirmButton";
-import OtherOptionButton from '../buttons/sign-up-buttons/OtherOptionButton';
+import { useRef, useEffect } from 'react';
 
 import SignUpForm from "../forms/SignUpForm";
 
 const SignUpModal = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
-
     const modalRef = useRef(null);
 
-    // Closes modal if clicked outside
     useEffect(() => {
         function handleClickOutside(e) {
+            if (!isOpen) return;
+
             if (modalRef.current && !modalRef.current.contains(e.target)) {
                 onClose();
             }
@@ -22,49 +17,40 @@ const SignUpModal = ({ isOpen, onClose }) => {
         document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            document.removeEventListener("mousdeown", handleClickOutside);
-        }
-    }, [onClose]);
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen, onClose]);
 
-    return(
-        <>
-            <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-                <div ref={modalRef} className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-                    <div className="flex flex-col justify-center items-center mb-4">
-                        <h2 className="mb-4">Logo here</h2>
-                        <h2 className="text-black text-2xl font-semibold mb-4">Join Our Exclusive Community!</h2>
-                        <p className="text-gray-400 text-sm text-center px-6">
-                            Become a member to enjoy special content and offers. Sign up now and get 10% off your first
-                            purchase with SideQuest
-                        </p>
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+            <div
+                ref={modalRef}
+                className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg"
+            >
+                <div className="mb-6 flex flex-col items-center text-center">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-zinc-950 text-lg font-bold text-white">
+                        SQ
                     </div>
 
-                    <SignUpForm
-                        onSuccess={onClose}
-                    />
+                    <h2 className="text-2xl font-semibold text-zinc-950">
+                        Create your SideQuest account
+                    </h2>
 
-                    <p className="text-gray-400 text-sm text-center mt-4">
-                        or continue with
+                    <p className="mt-2 max-w-sm text-sm leading-6 text-gray-500">
+                        Post quests, accept tasks, and track your activity from one simple dashboard.
                     </p>
-
-                    <div className="flex justify-center items-center gap-1 mt-4 mb-6">
-                        <OtherOptionButton
-                            label="Facebook"
-                            onClick="" // TODO: create functionality
-                        />
-                        <OtherOptionButton
-                            label="Google"
-                            onClick="" // TODO: create functionality
-                        />
-                        <OtherOptionButton
-                            label="Apple"
-                            onClick="" // TODO: create functionality
-                        />
-                    </div>
                 </div>
+
+                <SignUpForm onSuccess={onClose} />
+
+                <p className="mt-5 text-center text-sm text-gray-500">
+                    Already have an account? Login from the header.
+                </p>
             </div>
-        </>
+        </div>
     );
-}
+};
 
 export default SignUpModal;

@@ -10,56 +10,85 @@ const QuestCard = ({
     onEdit,
     onDelete
 }) => {
+    const formattedReward = new Intl.NumberFormat('en-PH', {
+        style: 'currency',
+        currency: 'PHP',
+        maximumFractionDigits: 0
+    }).format(quest.reward);
+
     return (
-        <>
-            <div className="w-full bg-white px-6 py-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
-                <div className="flex flex-col gap-4 justify-center">
-                    <div className="flex justify-between gap-4">
-                        <div className="flex flex-col gap-2">
-                            <span className="text-zinc-900 font-semibold text-lg">{quest.title}</span>
-                            <p className="text-gray-500 font-medium text-xs">{quest.description}</p>
-                        </div>
+        <div className="w-full rounded-lg border border-gray-200 bg-white p-5 shadow-sm transition-shadow duration-200 hover:shadow-md">
+            <div className="flex h-full flex-col gap-4">
+                <div className="flex items-start justify-between gap-4">
+                    <div className="min-w-0">
+                        <h2 className="truncate text-lg font-semibold text-zinc-950">
+                            {quest.title}
+                        </h2>
 
-                        <StatusBadge
-                            status={quest.status}
-                        />
+                        <p className="mt-1 line-clamp-2 text-sm leading-6 text-gray-500">
+                            {quest.description}
+                        </p>
                     </div>
 
-                    <div className="w-full flex justify-between bg-amber-50 border border-amber-100 rounded-lg px-4 py-2">
-                        <div className="flex flex-col">
-                            <span className="text-amber-700 font-medium text-xs">Given Reward</span>
-                            <span className="text-amber-950 font-semibold text-xl">{quest.reward}</span>
-                        </div>
-
-                        <ViewCardButton
-                            type='button'
-                            label='View Card'
-                            onClick={() => viewCard(quest)}
-                        />
-
+                    <div className="shrink-0">
+                        <StatusBadge status={quest.status} />
                     </div>
-
-                    {variant === 'owner' ? (
-                        <div className="w-full flex justify-between items-center">
-                            <BigBlackButton
-                                label='Edit'
-                                onClick={() => onEdit(quest)}
-                            />
-
-                            <DangerButton
-                                label='Delete'
-                                type='button'
-                                onClick={() => onDelete(quest)}
-                            />
-                        </div>
-                    ) : (
-                        <>
-                        </>
-                    )}
                 </div>
+
+                <div className="grid gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
+                    <div>
+                        <p className="text-xs font-medium text-gray-500">
+                            Pickup
+                        </p>
+                        <p className="mt-1 truncate text-sm font-medium text-zinc-900">
+                            {quest.pickupLocation}
+                        </p>
+                    </div>
+
+                    <div>
+                        <p className="text-xs font-medium text-gray-500">
+                            Delivery
+                        </p>
+                        <p className="mt-1 truncate text-sm font-medium text-zinc-900">
+                            {quest.deliveryLocation}
+                        </p>
+                    </div>
+                </div>
+
+                <div className="flex items-center justify-between rounded-lg border border-amber-100 bg-amber-50 px-4 py-3">
+                    <div>
+                        <p className="text-xs font-medium text-amber-700">
+                            Reward
+                        </p>
+                        <p className="mt-1 text-xl font-semibold text-amber-950">
+                            {formattedReward}
+                        </p>
+                    </div>
+
+                    <ViewCardButton
+                        type="button"
+                        label="View Quest"
+                        onClick={() => viewCard(quest)}
+                    />
+                </div>
+
+                {variant === 'owner' && (
+                    <div className="flex items-center justify-end gap-3 border-t border-gray-200 pt-4">
+                        <BigBlackButton
+                            label="Edit"
+                            onClick={() => onEdit(quest)}
+                        />
+
+                        <DangerButton
+                            label="Delete"
+                            type="button"
+                            onClick={() => onDelete(quest)}
+                        />
+                    </div>
+                )}
             </div>
-        </>
+        </div>
     );
-}
+};
 
 export default QuestCard;
