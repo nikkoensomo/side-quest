@@ -117,7 +117,7 @@ const QuestDetailsModal = ({
                         <>
                             <button
                                 type="button"
-                                onClick={() => onCancel(quest._id)}
+                                onClick={() => onCancel(quest)}
                                 disabled={isLoading}
                                 className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
                             >
@@ -127,7 +127,7 @@ const QuestDetailsModal = ({
                             <ConfirmButton
                                 type="button"
                                 label={isLoading ? "Completing..." : "Complete"}
-                                onClick={() => onComplete(quest._id)}
+                                onClick={() => onComplete(quest)}
                                 disabled={isLoading}
                             />
                         </>
