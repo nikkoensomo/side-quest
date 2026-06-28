@@ -8,37 +8,42 @@ import LoginModal from '../components/modals/LoginModal';
 const LandingPage = () => {
     const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [modalMode, setModalMode] = useState(null);
 
-    function handleRegistration() {
-        setIsRegistrationModalOpen(true);
+    const handleLoginModal = () => {
+        setModalMode('login');
     }
 
-    function handleLogin() {
-        setIsLoginModalOpen(true);
+    const handleRegistrationModal = () => {
+        setModalMode('register');
+    }
+
+    const handleCloseModal = () => {
+        setModalMode(null);
     }
 
     return (
         <>
             <LandingPageHeader
-                onGetStarted={handleRegistration}
-                onLogin={handleLogin}
+                onGetStarted={handleRegistrationModal}
+                onLogin={handleLoginModal}
             />
 
             <main className="min-h-screen bg-gray-50">
                 <LandingPageHero
-                    onGetStarted={handleRegistration}
-                    onLogin={handleLogin}
+                    onGetStarted={handleRegistrationModal}
+                    onLogin={modalMode === 'login'}
                 />
             </main>
 
             <SignUpModal
-                isOpen={isRegistrationModalOpen}
-                onClose={() => setIsRegistrationModalOpen(false)}
+                isOpen={modalMode === 'register'}
+                onClose={handleCloseModal}
             />
 
             <LoginModal
-                isOpen={isLoginModalOpen}
-                onClose={() => setIsLoginModalOpen(false)}
+                isOpen={modalMode === 'login'}
+                onClose={handleCloseModal}
             />
         </>
     );
