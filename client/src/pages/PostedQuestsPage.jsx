@@ -6,9 +6,12 @@ import EditQuestModal from '../components/modals/EditQuestModal.jsx';
 import TaskList from "../components/cards/TaskList";
 import QuestList from '../components/cards/QuestList.jsx';
 import QuestCard from '../components/cards/QuestCard.jsx';
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 import { getUserQuestService, deleteQuestService } from '../services/questService.js';
 
 const PostedQuestsPage = () => {
+    useDocumentTitle('Posted Quests - SideQuest');
+
     const [userQuest, setUserQuest] = useState([]);
     const [selectedQuest, setSelectedQuest] = useState(null);
     const [isLoading, setIsLoading] = useState(false);

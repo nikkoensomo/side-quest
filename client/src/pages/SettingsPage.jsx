@@ -3,8 +3,11 @@ import { getLoggedInUser } from '../services/userService';
 
 import SettingsPageHero from "../components/sections/SettingsPageHero";
 import RedButton from "../components/buttons/RedButton";
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 
 const SettingsPage = () => {
+    useDocumentTitle('Settings - SideQuest');
+
     const [modalMode, setModalMode] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
 
