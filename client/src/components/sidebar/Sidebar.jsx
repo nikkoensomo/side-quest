@@ -23,6 +23,7 @@ const navItems = [
 const Sidebar = ({ onClose }) => {
     const navigate = useNavigate();
     const [modalMode, setModalMode] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOpenModal = () => {
         setModalMode('logout');
@@ -32,9 +33,19 @@ const Sidebar = ({ onClose }) => {
         setModalMode(null);
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        navigate('/', { replace: true });
+    const handleLogout = async () => {
+        try {
+            setIsLoading(true);
+            await new Promise((resolve) => setTimeout(resolve, 400));
+            
+            localStorage.removeItem('token');
+            handleCloseModal();
+            navigate('/', { replace: true });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -93,6 +104,7 @@ const Sidebar = ({ onClose }) => {
                 label="Logout"
                 onClick={handleLogout}
                 onClose={handleCloseModal}
+                isLoading={isLoading}
             />
         </>
     );
