@@ -36,7 +36,7 @@ const QuestCard = ({
                 </div>
 
                 <div className="grid gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
-                    <div>
+                    <div className="min-w-0">
                         <p className="text-xs font-medium text-gray-500">
                             Pickup
                         </p>
@@ -45,7 +45,7 @@ const QuestCard = ({
                         </p>
                     </div>
 
-                    <div>
+                    <div className="min-w-0">
                         <p className="text-xs font-medium text-gray-500">
                             Delivery
                         </p>

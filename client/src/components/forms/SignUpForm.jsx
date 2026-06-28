@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signupService } from '../../services/authService';
 
 import BigBlackButton from '../buttons/BigBlackButton';
+import { LoaderCircle } from 'lucide-react';
 
 const SignUpForm = ({ onSuccess }) => {
     const navigate = useNavigate();
@@ -131,7 +132,14 @@ const SignUpForm = ({ onSuccess }) => {
                 {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
 
                 <BigBlackButton
-                    label={isLoading ? 'Creating account...' : 'Create Account'}
+                    label={isLoading ? (
+                        <>
+                            Creating Account
+                            <LoaderCircle className="animate-spin" size={20}/>
+                        </>
+                    ) : (
+                        "Create Account"
+                    )}
                     onClick={handleSubmit}
                     isDisabled={isLoading}
                 />
