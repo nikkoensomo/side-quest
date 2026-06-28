@@ -4,9 +4,12 @@ import QuestList from '../components/cards/QuestList';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal';
 import ConfirmationModal from '../components/modals/ConfirmationModal';
 import CancelQuestModal from '../components/modals/CancelQuestModal';
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 
 
 const AcceptedQuestsPage = () => {
+    useDocumentTitle('Accepted Quests - SideQuest');
+
     const [takenQuests, setTakenQuests] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [modalMode, setModalMode] = useState(null);

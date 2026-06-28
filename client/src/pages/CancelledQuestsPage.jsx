@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { getUserCancelledQuestsService, cancelAcceptedQuestService } from '../services/questService';
 import QuestList from '../components/cards/QuestList';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal';
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 
 const CancelledQuestsPage = () => {
+    useDocumentTitle('Cancelled Quests - SideQuest');
 
     const [cancelledQuests, setCancelledQuests] = useState(null);
     const [selectedQuest, setSelectedQuest] = useState(null);

@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 import { getUserCompletedQuestsService } from '../services/questService';
 import QuestList from '../components/cards/QuestList';
 import QuestDetailsModal from '../components/modals/QuestDetailsModal';
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 
 const CompletedQuestsPage = () => {
+    useDocumentTitle('Completed Quests - SideQuest');
+
     const [isLoading, setIsLoading] = useState(false);
     const [completedQuests, setCompletedQuests] = useState(null);
     const [selectedQuest, setSelectedQuest] = useState(null);

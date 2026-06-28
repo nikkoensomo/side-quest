@@ -4,8 +4,11 @@ import LandingPageHeader from "../components/headers/LandingPageHeader";
 import LandingPageHero from "../components/sections/LandingPageHero";
 import SignUpModal from "../components/modals/SignUpModal";
 import LoginModal from '../components/modals/LoginModal';
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 
 const LandingPage = () => {
+    useDocumentTitle('Landing - SideQuest');
+
     const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [modalMode, setModalMode] = useState(null);
