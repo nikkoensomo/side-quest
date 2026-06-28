@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAllQuestsService, acceptQuestService } from '../services/questService.js';
 import { getLoggedInUser } from '../services/userService.js';
+import useDocumentTitle from '../hooks/useDocumentTitle.js';
 
 import DashboardPageHero from "../components/sections/DashboardPageHero";
 import CreateButton from "../components/buttons/CreateButton.jsx";
@@ -10,6 +11,8 @@ import DangerModal from '../components/modals/DangerModal.jsx';
 import QuestList from '../components/cards/QuestList.jsx';
 
 const DashboardPage = () => {
+    useDocumentTitle('Dashboard - SideQuest');
+
     const [quests, setQuests] = useState([]);
     const [user, setUser] = useState(null);
     const [selectedQuest, setSelectedQuest] = useState(null);
