@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginService } from '../../services/authService';
 
 import BigBlackButton from '../buttons/BigBlackButton';
+import { LoaderCircle } from 'lucide-react';
 
 const LoginForm = ({ onSuccess }) => {
     const navigate = useNavigate();
@@ -21,8 +22,8 @@ const LoginForm = ({ onSuccess }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     function handleChange(e) {
-        setFormData({...formData, [e.target.name]: e.target.value });
-        setErrors({...errors, [e.target.name]: "" });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setErrors({ ...errors, [e.target.name]: "" });
     }
 
     function validate() {
@@ -30,7 +31,7 @@ const LoginForm = ({ onSuccess }) => {
 
         if (!formData.username.trim()) {
             newErrors.username = "Please enter your username."
-        } 
+        }
 
         if (!formData.password) {
             newErrors.password = "Please enter your password."
@@ -91,7 +92,15 @@ const LoginForm = ({ onSuccess }) => {
                 {errors.general && <p className="text-red-500 text-xs">{errors.general}</p>}
 
                 <BigBlackButton
-                    label={isLoading ? 'Logging in...' : 'Login'}
+                    label={isLoading ? (
+                        <>
+                            Logging in...
+                            <LoaderCircle className="animate-spin" size={20}/>
+                        </>
+                    ) : (
+                        "Login"
+                    )
+                }
                     onClick={handleSubmit}
                     isDisabled={isLoading}
                 />
