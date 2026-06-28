@@ -1,6 +1,7 @@
+import { LoaderCircle } from 'lucide-react';
 import BigBlackButton from '../buttons/BigBlackButton';
 
-const LogoutConfirmationModal = ({ isOpen, onClose, onClick, label, text }) => {
+const LogoutConfirmationModal = ({ isOpen, onClose, onClick, label, text, isLoading }) => {
     if (!isOpen) return null;
 
     return (
@@ -16,7 +17,7 @@ const LogoutConfirmationModal = ({ isOpen, onClose, onClick, label, text }) => {
                     </p>
                 </div>
 
-                <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                <div className="mt-6 flex items-center justify-center gap-3">
                     <button
                         type="button"
                         onClick={onClose}
@@ -26,7 +27,13 @@ const LogoutConfirmationModal = ({ isOpen, onClose, onClick, label, text }) => {
                     </button>
 
                     <BigBlackButton
-                        label={label}
+                        label={isLoading ? (
+                            <>
+                                <LoaderCircle className="animate-spin" size={20}/>
+                            </>
+                        ) : (
+                            "Logout"
+                        )}
                         onClick={onClick}
                     />
                 </div>
