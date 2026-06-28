@@ -89,6 +89,7 @@ const SignUpForm = ({ onSuccess }) => {
     return (
         <>
             <div className="flex flex-col gap-4 px-6">
+                {errors.general && <p className="text-red-500 text-xs">{errors.general}</p>}
                 <input
                     type="text"
                     name="username"
@@ -125,7 +126,7 @@ const SignUpForm = ({ onSuccess }) => {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="Confirm Password"
-                    className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black mb-4"
+                    className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                 />
                 {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
 
