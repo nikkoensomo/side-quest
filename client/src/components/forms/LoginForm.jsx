@@ -88,6 +88,7 @@ const LoginForm = ({ onSuccess }) => {
                     className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
                 />
                 {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
+                {errors.general && <p className="text-red-500 text-xs">{errors.general}</p>}
 
                 <BigBlackButton
                     label={isLoading ? 'Logging in...' : 'Login'}
